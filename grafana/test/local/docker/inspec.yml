@@ -1,0 +1,9 @@
+name: docker
+title: Grafana Inspec Profile
+maintainer: Mihail Chirita
+copyright: None
+copyright_email: inspec@rocks.io
+license: No
+summary: First attempt at writing a profile for Grafana
+version: 0.1.0
+platform: docker
