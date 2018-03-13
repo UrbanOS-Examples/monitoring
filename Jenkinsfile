@@ -8,7 +8,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                echo 'Testing ...'
+                echo 'Paying with the Delivery Pipeline ...'
             }
         }
     }
