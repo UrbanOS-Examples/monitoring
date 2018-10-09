@@ -1,0 +1,96 @@
+externalDns:
+  args:
+    source: ingress
+    provider: aws
+    policy: upsert-only
+    aws-zone-type: public
+    registry: txt
+    txt-owner-id: scos
+    # domain-filter: ${DNS_ZONE}
+
+grafana:
+  service:
+    type: NodePort
+  ingress:
+    enabled: true
+    annotations:
+      alb.ingress.kubernetes.io/healthcheck-path: /api/health
+  persistentVolume:
+    enabled: true
+    accessModes:
+      - ReadWriteOnce
+    size: 5Gi
+  datasources: 
+    datasources.yaml:
+      apiVersion: 1
+      datasources:
+      - name: Prometheus
+        type: prometheus
+        url: http://prometheus-server.prometheus.svc.cluster.local
+        access: proxy
+        isDefault: true
+  dashboards:
+    default:
+      kube-official-dash:
+        gnetId: 2
+        revision: 2
+        datasource: Prometheus
+      kube-nodes:
+        gnetId: 7692
+        revision: 1
+        datasource: Prometheus
+      kube-namespace:
+        gnetId: 6876
+        revision: 2
+        datasource: Prometheus
+      kube-cluster:
+        gnetId: 6873
+        revision: 2
+        datasource: Prometheus
+      kube-pods:
+        gnetId: 6879
+        revision: 1
+        datasource: Prometheus
+  dashboardProviders:
+    dashboardproviders.yaml:
+      apiVersion: 1
+      providers:
+      - name: 'default'
+        orgId: 1
+        folder: ''
+        type: file
+        disableDeletion: false
+        editable: true
+        options:
+          path: /var/lib/grafana/dashboards/default
+
+alertmanager:
+  service:
+    type: NodePort
+  ingress:
+    enabled: true
+    annotations:
+      alb.ingress.kubernetes.io/healthcheck-path: /-/healthy
+
+server:
+  service:
+    type: NodePort
+  ingress:
+    enabled: true
+    annotations:
+      alb.ingress.kubernetes.io/healthcheck-path: /-/healthy
+
+global:
+  ingress:
+    annotations:
+      kubernetes.io/ingress.class: alb
+      alb.ingress.kubernetes.io/tags: scos.delete.on.teardown=true
+      alb.ingress.kubernetes.io/scheme: internal
+
+# helm install --name=prometheus --namespace=prometheus \
+#   --set global.ingress.annotations."alb\.ingress\.kubernetes\.io\/subnets"="${SUBNETS//,/\\,}" \
+#   --set global.ingress.annotations."alb\.ingress\.kubernetes\.io\/security\-groups"="${SECURITY_GROUPS}" \
+#   --set grafana.ingress.hosts[0]="grafana\.${DNS_ZONE}" \
+#   --set alertmanager.ingress.hosts[0]="alertmanager\.${DNS_ZONE}" \
+#   --set server.ingress.hosts[0]="prometheus\.${DNS_ZONE}" \
+#   --values prometheus/run-config.yaml prometheus

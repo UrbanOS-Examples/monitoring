@@ -1,0 +1,22 @@
+name: prometheus
+apiVersion: v1
+description: Combined prometheus and grafana stack for the Smart City OS
+version: 1.0.0
+tillerVersion: ">=2.8.0"
+keywords:
+- monitoring
+- alerting
+- prometheus
+- grafana
+- alertmanager
+- node-exporter
+- kube-state-metrics
+sources:
+- https://github.com/prometheus/alertmanager
+- https://github.com/prometheus/prometheus
+- https://github.com/prometheus/pushgateway
+- https://github.com/prometheus/node_exporter
+- https://github.com/kubernetes/kube-state-metrics
+- https://github.com/grafana/grafana
+- https://github.com/kubernetes-incubator/external-dns
+- https://github.com/kubernetes-sigs/aws-alb-ingress-controller

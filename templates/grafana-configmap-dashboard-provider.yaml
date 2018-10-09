@@ -1,0 +1,27 @@
+{{- if .Values.grafana.sidecar.dashboards.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    app: {{ template "prometheus.name" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    component: "{{ .Values.grafana.name }}"
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+{{- with .Values.grafana.annotations }}
+  annotations:
+{{ toYaml . | indent 4 }}
+{{- end }}
+  name: {{ template "prometheus.grafana.fullname" . }}-config-dashboards
+data:
+  provider.yaml: |-
+    apiVersion: 1
+    providers:
+    - name: 'default'
+      orgId: 1
+      folder: ''
+      type: file
+      disableDeletion: false
+      options:
+        path: {{ .Values.grafana.sidecar.dashboards.folder }}
+{{- end}}

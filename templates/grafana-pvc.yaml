@@ -1,0 +1,31 @@
+{{- if .Values.grafana.persistentVolume.enabled -}}
+{{- if not .Values.grafana.persistentVolume.existingClaim -}}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  {{- if .Values.grafana.persistentVolume.annotations }}
+  annotations:
+{{ toYaml .Values.grafana.persistentVolume.annotations | indent 4 }}
+  {{- end }}
+  labels:
+    app: {{ template "prometheus.name" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    component: "{{ .Values.grafana.name }}"
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+  name: {{ template "prometheus.grafana.fullname" . }}
+spec:
+  accessModes:
+{{ toYaml .Values.grafana.persistentVolume.accessModes | trim | indent 4 }}
+{{- if .Values.grafana.persistentVolume.storageClass }}
+{{- if (eq "-" .Values.grafana.persistentVolume.storageClass) }}
+  storageClassName: ""
+{{- else }}
+  storageClassName: "{{ .Values.grafana.persistentVolume.storageClass }}"
+{{- end }}
+{{- end }}
+  resources:
+    requests:
+      storage: {{ .Values.grafana.persistentVolume.size | quote }}
+{{- end -}}
+{{- end -}}
