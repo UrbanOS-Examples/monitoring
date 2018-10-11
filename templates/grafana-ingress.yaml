@@ -1,0 +1,47 @@
+{{- if .Values.grafana.ingress.enabled -}}
+{{- $releaseName := .Release.Name -}}
+{{- $serviceName := include "prometheus.grafana.fullname" . }}
+{{- $servicePort := .Values.grafana.service.servicePort -}}
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+{{- if .Values.global.ingress.annotations }}
+  annotations:
+{{ toYaml .Values.global.ingress.annotations | trim | indent 4 }}
+{{- end }}
+{{- if .Values.grafana.ingress.annotations }}
+{{ toYaml .Values.grafana.ingress.annotations | trim | indent 4 }}
+{{- end }}
+  labels:
+    app: {{ template "prometheus.name" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    component: "{{ .Values.grafana.name }}"
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+{{- range $key, $value := .Values.grafana.ingress.extraLabels }}
+    {{ $key }}: {{ $value }}
+{{- end }}
+  name: {{ template "prometheus.grafana.fullname" . }}
+spec:
+  rules:
+  {{- range .Values.grafana.ingress.hosts }}
+    {{- $url := splitList "/" . }}
+    - host: {{ first $url }}
+      http:
+        paths:
+          - path: /{{ rest $url | join "/" }}
+            backend:
+              serviceName: {{ $serviceName }}
+              servicePort: {{ $servicePort }}
+  {{- end -}}
+{{- if .Values.grafana.ingress.tls }}
+  tls:
+  {{- range .Values.grafana.ingress.tls }}
+    - hosts:
+      {{- range .hosts }}
+        - {{ . | quote }}
+      {{- end }}
+      secretName: {{ .secretName }}
+  {{- end }}
+{{- end }}
+{{- end }}
