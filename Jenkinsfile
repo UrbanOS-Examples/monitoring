@@ -53,7 +53,7 @@ def deployMonitoringTo(environment) {
         sh("""#!/bin/bash
 
             helm init --client-only
-
+            helm dependency update
             helm upgrade --install prometheus . \
                 --namespace=prometheus \
                 --set global.ingress.annotations."alb\\.ingress\\.kubernetes\\.io\\/subnets"="${subnets}" \
