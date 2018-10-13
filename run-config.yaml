@@ -103,6 +103,14 @@ serverFiles:
               description: '{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 5 minutes.'
               summary: 'Instance {{ $labels.instance }} down'
 
+# I would like the below config to look like this!
+# blackbox:
+#   targets: #Add sites to monitor here
+#     - https://jupyter.dev.internal.smartcolumbusos.com/hub/login
+#     - https://cota.dev.internal.smartcolumbusos.com
+#     - https://streaming.dev.internal.smartcolumbusos.com/socket/healthcheck
+#   hostname: prometheus-prometheus-blackbox-exporter:9115
+
 extraScrapeConfigs: |
   - job_name: 'blackbox'
     metrics_path: /probe
@@ -110,8 +118,11 @@ extraScrapeConfigs: |
       module: [http_2xx] # Look for a HTTP 200 response.
     static_configs:
       - targets: # Add sites to monitor here
+        - https://jupyter.dev.internal.smartcolumbusos.com/hub/login
         - https://cota.dev.internal.smartcolumbusos.com
         - https://streaming.dev.internal.smartcolumbusos.com/socket/healthcheck
+        - https://ckan.dev.internal.smartcolumbusos.com/
+        - https://www.dev.internal.smartcolumbusos.com/
     relabel_configs:
       - source_labels: [__address__]
         target_label: __param_target
