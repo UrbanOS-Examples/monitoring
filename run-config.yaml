@@ -97,6 +97,18 @@ serverFiles:
           expr: sum(kube_pod_container_resource_requests_cpu_cores) by (node)
         - record: node:limits_cpu:sum
           expr: sum(kube_pod_container_resource_limits_cpu_cores) by (node)
+        - record: cluster:capacity_memory_bytes:sum
+          expr: sum(kube_node_status_capacity_memory_bytes)
+        - record: cluster:guarantees_memory_bytes:sum
+          expr: sum(kube_pod_container_resource_requests_memory_bytes)
+        - record: cluster:limits_memory_bytes:sum
+          expr: sum(kube_pod_container_resource_limits_memory_bytes)
+        - record: cluster:capacity_cpu:sum
+          expr: sum(kube_node_status_capacity_cpu_cores)
+        - record: cluster:guarantees_cpu:sum
+          expr: sum(kube_pod_container_resource_requests_cpu_cores)
+        - record: cluster:limits_cpu:sum
+          expr: sum(kube_pod_container_resource_limits_cpu_cores)
   alerts:
     groups:
       # Blackbox probe
