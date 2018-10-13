@@ -111,35 +111,6 @@ serverFiles:
               description: '{{ $labels.kubernetes_pod_name }} has been down for more than 5 minutes.'
               summary: 'Streaming pod {{ $labels.kubernetes_pod_name }} down'
 
-# I would like the below config to look like this!
-# blackbox:
-#   targets: #Add sites to monitor here
-#     - https://jupyter.dev.internal.smartcolumbusos.com/hub/login
-#     - https://cota.dev.internal.smartcolumbusos.com
-#     - https://streaming.dev.internal.smartcolumbusos.com/socket/healthcheck
-#   hostname: prometheus-prometheus-blackbox-exporter:9115
-
-extraScrapeConfigs: |
-  - job_name: 'blackbox'
-    metrics_path: /probe
-    params:
-      module: [http_2xx] # Look for a HTTP 200 response.
-    static_configs:
-      - targets: # Add sites to monitor here
-        - https://jupyter.dev.internal.smartcolumbusos.com/hub/login
-        - https://cota.dev.internal.smartcolumbusos.com
-        - https://streaming.dev.internal.smartcolumbusos.com/socket/healthcheck
-        - https://ckan.dev.internal.smartcolumbusos.com/
-        - https://www.dev.internal.smartcolumbusos.com/
-    relabel_configs:
-      - source_labels: [__address__]
-        target_label: __param_target
-      - source_labels: [__param_target]
-        target_label: instance
-      - target_label: __address__
-        # ${namespace}-prometheus-blackbox-exporter:9115
-        replacement: prometheus-prometheus-blackbox-exporter:9115
-
 global:
   ingress:
     annotations:

@@ -61,7 +61,8 @@ def deployMonitoringTo(environment) {
                 --set grafana.ingress.hosts[0]="grafana\\.${dns_zone}" \
                 --set alertmanager.ingress.hosts[0]="alertmanager\\.${dns_zone}" \
                 --set server.ingress.hosts[0]="prometheus\\.${dns_zone}" \
-                --values run-config.yaml
+                --values run-config.yaml \
+                --values endpoints/${environment}.yaml
         """.trim())
     }
 }

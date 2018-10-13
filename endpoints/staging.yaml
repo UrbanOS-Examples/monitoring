@@ -1,0 +1,20 @@
+extraScrapeConfigs: |
+  - job_name: 'blackbox'
+    metrics_path: /probe
+    params:
+      module: [http_2xx] # Look for a HTTP 200 response.
+    static_configs:
+      - targets: # Add sites to monitor here
+        - https://jupyter.staging.internal.smartcolumbusos.com/hub/login
+        - https://cota.staging.internal.smartcolumbusos.com
+        - https://streaming.staging.internal.smartcolumbusos.com/socket/healthcheck
+        - https://ckan.staging.internal.smartcolumbusos.com/
+        - https://www.staging.internal.smartcolumbusos.com/
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        # ${namespace}-prometheus-blackbox-exporter:9115
+        replacement: prometheus-prometheus-blackbox-exporter:9115
