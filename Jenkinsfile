@@ -62,7 +62,9 @@ def deployMonitoringTo(environment) {
                 --set alertmanager.ingress.hosts[0]="alertmanager\\.${dns_zone}" \
                 --set server.ingress.hosts[0]="prometheus\\.${dns_zone}" \
                 --values run-config.yaml \
-                --values endpoints/${environment}.yaml
+                --values endpoints/${environment}.yaml \
+                --values alerts.yaml \
+                --values rules.yaml
         """.trim())
     }
 }
