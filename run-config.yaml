@@ -91,7 +91,7 @@ serverFiles:
             labels:
               severity: page
             annotations:
-              description: '{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 5 minutes.'
+              description: '{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 2 minutes.'
               summary: 'Instance {{ $labels.instance }} down'
       # Blackbox probe
       - name: Sites
@@ -100,8 +100,16 @@ serverFiles:
             expr: probe_success == 0
             for: 2m
             annotations:
-              description: '{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 5 minutes.'
+              description: '{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 2 minutes.'
               summary: 'Instance {{ $labels.instance }} down'
+      - name: Streaming
+        rules:
+          - alert: StreamingPodDown
+            expr: up{strimzi_io_cluster="streaming-service"} == 0
+            for: 5m
+            annotations:
+              description: '{{ $labels.kubernetes_pod_name }} has been down for more than 5 minutes.'
+              summary: 'Streaming pod {{ $labels.kubernetes_pod_name }} down'
 
 # I would like the below config to look like this!
 # blackbox:
