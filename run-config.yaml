@@ -96,10 +96,25 @@ serverFiles:
         rules:
           - alert: StreamingPodDown
             expr: up{strimzi_io_cluster="streaming-service"} == 0
+            for: 2m
+            annotations:
+              description: '{{ $labels.kubernetes_pod_name }} has been down for more than 2 minutes.'
+              summary: 'Streaming pod {{ $labels.kubernetes_pod_name }} down'
+      - name: K8S_Nodes
+        rules:
+          - alert: LowMemory
+            expr: (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes * 100) < 20
             for: 5m
             annotations:
-              description: '{{ $labels.kubernetes_pod_name }} has been down for more than 5 minutes.'
-              summary: 'Streaming pod {{ $labels.kubernetes_pod_name }} down'
+                description: '{{ $labels.instance }} has {{ $value }} percent memory left'
+                summary: 'Low Memory on Instance {{ $labels.instance }}'
+          - alert: LowDisk
+            expr: (node_filesystem_avail_bytes{device=~"/dev/.*"} / node_filesystem_size_bytes{device=~"/dev/.*"} * 100) < 20
+            for: 5m
+            annotations:
+                description: '{{ $labels.instance }} has {{ $value }} percent disk left'
+                summary: 'Low Disk on Instance {{ $labels.instance }}'
+
 
 global:
   ingress:
