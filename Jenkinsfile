@@ -50,21 +50,25 @@ def deployMonitoringTo(environment) {
         def albToClusterSG = terraformOutputs.allow_all_security_group.value
         def dns_zone = environment + '.internal.smartcolumbusos.com'
 
-        sh("""#!/bin/bash
+        withCredentials([string(credentialsId: "slack-webhook-${environment}", variable: 'SLACK_URL')]) {
+            sh("""#!/bin/bash
 
-            helm init --client-only
-            helm dependency update
-            helm upgrade --install prometheus . \
-                --namespace=prometheus \
-                --set global.ingress.annotations."alb\\.ingress\\.kubernetes\\.io\\/subnets"="${subnets}" \
-                --set global.ingress.annotations."alb\\.ingress\\.kubernetes\\.io\\/security\\-groups"="${albToClusterSG}" \
-                --set grafana.ingress.hosts[0]="grafana\\.${dns_zone}" \
-                --set alertmanager.ingress.hosts[0]="alertmanager\\.${dns_zone}" \
-                --set server.ingress.hosts[0]="prometheus\\.${dns_zone}" \
-                --values run-config.yaml \
-                --values endpoints/${environment}.yaml \
-                --values alerts.yaml \
-                --values rules.yaml
-        """.trim())
+                helm init --client-only
+                helm dependency update
+                helm upgrade --install prometheus . \
+                    --namespace=prometheus \
+                    --set global.ingress.annotations."alb\\.ingress\\.kubernetes\\.io\\/subnets"="${subnets}" \
+                    --set global.ingress.annotations."alb\\.ingress\\.kubernetes\\.io\\/security\\-groups"="${albToClusterSG}" \
+                    --set grafana.ingress.hosts[0]="grafana\\.${dns_zone}" \
+                    --set alertmanager.ingress.hosts[0]="alertmanager\\.${dns_zone}" \
+                    --set server.ingress.hosts[0]="prometheus\\.${dns_zone}" \
+                    --set alertmanagerFiles."alertmanager\\.yml".global.slack_api_url=$SLACK_URL \
+                    --values run-config.yaml \
+                    --values alerts.yaml \
+                    --values rules.yaml \
+                    --values endpoints/${environment}.yaml \
+                    --values alertManager/${environment}.yaml
+            """.trim())
+        }
     }
 }

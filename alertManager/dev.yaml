@@ -1,0 +1,7 @@
+alertmanagerFiles:
+  alertmanager.yml:
+    receivers:
+      - name: default-receiver
+        slack_configs:
+         - channel: '#pre_prod_alerts'
+           send_resolved: true
