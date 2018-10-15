@@ -53,7 +53,7 @@ def deployMonitoringTo(environment) {
         sh("""#!/bin/bash
 
             helm init --client-only
-
+            helm dependency update
             helm upgrade --install prometheus . \
                 --namespace=prometheus \
                 --set global.ingress.annotations."alb\\.ingress\\.kubernetes\\.io\\/subnets"="${subnets}" \
@@ -61,7 +61,10 @@ def deployMonitoringTo(environment) {
                 --set grafana.ingress.hosts[0]="grafana\\.${dns_zone}" \
                 --set alertmanager.ingress.hosts[0]="alertmanager\\.${dns_zone}" \
                 --set server.ingress.hosts[0]="prometheus\\.${dns_zone}" \
-                --values run-config.yaml
+                --values run-config.yaml \
+                --values endpoints/${environment}.yaml \
+                --values alerts.yaml \
+                --values rules.yaml
         """.trim())
     }
 }
