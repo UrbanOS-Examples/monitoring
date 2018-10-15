@@ -5,3 +5,5 @@ alertmanagerFiles:
         slack_configs:
          - channel: '#pre_prod_alerts'
            send_resolved: true
+           title: "{{ range .Alerts }}{{ .Annotations.summary }}\n{{ end }}"
+           text: "{{ range .Alerts }}{{ .Annotations.description }}\n{{ end }}"
