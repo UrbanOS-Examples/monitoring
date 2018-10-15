@@ -87,7 +87,7 @@ global:
       alb.ingress.kubernetes.io/tags: scos.delete.on.teardown=true
       alb.ingress.kubernetes.io/scheme: internal
 
-  # helm install --name=prometheus --namespace=prometheus \
+# helm install --name=prometheus --namespace=prometheus \
 #   --set global.ingress.annotations."alb\.ingress\.kubernetes\.io\/subnets"="${SUBNETS//,/\\,}" \
 #   --set global.ingress.annotations."alb\.ingress\.kubernetes\.io\/security\-groups"="${SECURITY_GROUPS}" \
 #   --set grafana.ingress.hosts[0]="grafana\.${DNS_ZONE}" \
