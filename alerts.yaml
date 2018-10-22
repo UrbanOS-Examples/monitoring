@@ -12,16 +12,6 @@ serverFiles:
             annotations:
               description: '{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 2 minutes.'
               summary: 'Instance {{ $labels.instance }} down'
-      - name: Streaming
-        rules:
-          - alert: StreamingPodDown
-            expr: up{strimzi_io_cluster="streaming-service"} == 0
-            for: 2m
-            labels:
-              severity: error
-            annotations:
-              description: '{{ $labels.kubernetes_pod_name }} has been down for more than 2 minutes.'
-              summary: 'Streaming pod {{ $labels.kubernetes_pod_name }} down'
       - name: K8S_Nodes
         rules:
           - alert: LowMemory
