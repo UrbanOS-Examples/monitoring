@@ -87,6 +87,23 @@ global:
       alb.ingress.kubernetes.io/tags: scos.delete.on.teardown=true
       alb.ingress.kubernetes.io/scheme: internal
 
+prometheus-blackbox-exporter:
+  resources:
+    limits:
+      cpu: 100m
+      memory: 50Mi
+    requests:
+      cpu: 10m
+      memory: 20Mi
+  configmapReload:
+    resources:
+      limits:
+        cpu: 100m
+        memory: 10Mi
+      requests:
+        cpu: 10m
+        memory: 10Mi
+
 # helm install --name=prometheus --namespace=prometheus \
 #   --set global.ingress.annotations."alb\.ingress\.kubernetes\.io\/subnets"="${SUBNETS//,/\\,}" \
 #   --set global.ingress.annotations."alb\.ingress\.kubernetes\.io\/security\-groups"="${SECURITY_GROUPS}" \
