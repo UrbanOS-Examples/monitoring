@@ -96,6 +96,15 @@ configmapReload:
       cpu: 10m
       memory: 10Mi
 
+nodeExporter:
+  resources:
+    limits:
+      cpu: 50m
+      memory: 256Mi
+    requests:
+      cpu: 10m
+      memory: 256Mi
+
 prometheus-blackbox-exporter:
   resources:
     limits:

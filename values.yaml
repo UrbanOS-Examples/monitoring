@@ -194,6 +194,13 @@ nodeExporter:
     loadBalancerSourceRanges: []
     servicePort: 9100
     type: ClusterIP
+  resources: {}
+    # limits:
+    #   cpu: 50m
+    #   memory: 256Mi
+    # requests:
+    #   cpu: 10m
+    #   memory: 256Mi
 
 server:
   name: server
