@@ -83,7 +83,7 @@ spec:
             - --volume-dir=/etc/config
             - --webhook-url=http://localhost:9093{{ .Values.alertmanager.prefixURL }}/-/reload
           resources:
-{{ include "prometheus.resources" . | trim | indent 12 }}
+{{ toYaml .Values.configmapReload.resources | indent 12 }}
           volumeMounts:
             - name: config-volume
               mountPath: /etc/config
