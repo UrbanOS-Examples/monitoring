@@ -70,7 +70,7 @@ spec:
             - --{{ $key }}={{ $value }}
           {{- end }}
           resources:
-{{ include "prometheus.resources" . | trim | indent 12 }}
+{{ toYaml .Values.configmapReload.resources | indent 12 }}
           volumeMounts:
             - name: config-volume
               mountPath: /etc/config

@@ -87,6 +87,15 @@ global:
       alb.ingress.kubernetes.io/tags: scos.delete.on.teardown=true
       alb.ingress.kubernetes.io/scheme: internal
 
+configmapReload:
+  resources:
+    limits:
+      cpu: 100m
+      memory: 10Mi
+    requests:
+      cpu: 10m
+      memory: 10Mi
+
 prometheus-blackbox-exporter:
   resources:
     limits:

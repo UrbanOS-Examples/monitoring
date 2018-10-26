@@ -119,6 +119,7 @@ configmapReload:
     #   mountPath: /etc/alerts.d
     #   configMap: prometheus-alerts
     #   readOnly: true
+  resources: {}
 
 initChownData:
   enabled: true
