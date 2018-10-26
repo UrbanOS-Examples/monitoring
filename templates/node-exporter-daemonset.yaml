@@ -63,7 +63,7 @@ spec:
               containerPort: 9100
               hostPort: {{ .Values.nodeExporter.service.hostPort }}
           resources:
-{{ include "prometheus.resources" . | trim | indent 12 }}
+{{ toYaml .Values.nodeExporter.resources | indent 12 }}
           volumeMounts:
             - name: proc
               mountPath: /host/proc
