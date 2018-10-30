@@ -20,6 +20,9 @@ extraScrapeConfigs: |
         - https://streaming.dev.internal.smartcolumbusos.com/socket/healthcheck
         - https://ckan.dev.internal.smartcolumbusos.com/
         - https://www.dev.internal.smartcolumbusos.com/
+        - https://kylo.dev.internal.smartcolumbusos.com/
+        - https://nifi.dev.internal.smartcolumbusos.com/
+        
     relabel_configs:
       - source_labels: [__address__]
         target_label: __param_target
