@@ -90,6 +90,7 @@ alertmanager:
     subPath: ""
   podAnnotations: {}
   replicaCount: 1
+  podManagementPolicy: OrderedReady
   securityContext: {}
   service:
     annotations: {}
@@ -266,10 +267,6 @@ server:
     accessModes:
       - ReadWriteOnce
     annotations: {}
-    ## Prometheus server data Persistent Volume existing claim name
-    ## Requires server.persistentVolume.enabled: true
-    ## If defined, PVC must be created manually before volume will be bound
-    existingClaim: ""
     mountPath: /data
     size: 8Gi
     ## Prometheus server data Persistent Volume Storage Class
@@ -287,6 +284,7 @@ server:
     subPath: ""
   podAnnotations: {}
   replicaCount: 1
+  podManagementPolicy: OrderedReady
   resources:
     limits:
       memory: 1.5Gi
@@ -303,6 +301,10 @@ server:
     servicePort: 80
     type: ClusterIP
   terminationGracePeriodSeconds: 300
+  headless:
+    annotations: {}
+    labels: {}
+    servicePort: 80
   retention: ""
 
 pushgateway:
