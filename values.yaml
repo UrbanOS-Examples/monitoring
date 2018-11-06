@@ -301,10 +301,6 @@ server:
     servicePort: 80
     type: ClusterIP
   terminationGracePeriodSeconds: 300
-  headless:
-    annotations: {}
-    labels: {}
-    servicePort: 80
   retention: ""
 
 pushgateway:
