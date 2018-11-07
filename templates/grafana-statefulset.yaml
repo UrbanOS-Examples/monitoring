@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ template "prometheus.grafana.fullname" . }}
   labels:
@@ -19,10 +19,7 @@ spec:
       component: "{{ .Values.grafana.name }}"
       release: {{ .Release.Name }}
   replicas: {{ .Values.grafana.replicaCount }}
-  {{- if .Values.server.strategy }}
-  strategy:
-{{ toYaml .Values.server.strategy | indent 4 }}
-  {{- end }}
+  podManagementPolicy: {{ .Values.grafana.podManagementPolicy }}
   template:
     metadata:
     {{- if .Values.grafana.podAnnotations }}
@@ -257,13 +254,31 @@ spec:
             items:
               - key: ldap-toml
                 path: ldap.toml
-        - name: storage
       {{- if .Values.grafana.persistentVolume.enabled }}
-          persistentVolumeClaim:
-            claimName: {{ .Values.grafana.persistentVolume.existingClaim | default (include "prometheus.grafana.fullname" .) }}
+  volumeClaimTemplates:
+    - metadata:
+        name: storage
+        {{- if .Values.grafana.persistentVolume.annotations }}
+        annotations:
+{{ toYaml .Values.grafana.persistentVolume.annotations | indent 10 }}
+        {{- end }}
+      spec:
+        accessModes:
+{{ toYaml .Values.grafana.persistentVolume.accessModes | indent 10 }}
+        resources:
+          requests:
+            storage: "{{ .Values.grafana.persistentVolume.size }}"
+      {{- if .Values.grafana.persistentVolume.storageClass }}
+      {{- if (eq "-" .Values.grafana.persistentVolume.storageClass) }}
+        storageClassName: ""
       {{- else }}
+        storageClassName: "{{ .Values.grafana.persistentVolume.storageClass }}"
+      {{- end }}
+      {{- end }}
+{{- else }}
+        - name: storage
           emptyDir: {}
-      {{- end -}}
+{{- end }}
       {{- if .Values.grafana.sidecar.dashboards.enabled }}
         - name: sc-dashboard-volume
           emptyDir: {}
