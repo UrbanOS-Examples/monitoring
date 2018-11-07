@@ -21,3 +21,10 @@ kubectl --namespace prometheus get secret prometheus-grafana -o jsonpath='{.data
 kubectl --namespace prometheus get secret prometheus-grafana -o jsonpath='{.data.admin-password}' \
     | base64 --decode && echo
 ```
+
+## Directory Structure
+
+- [endpoints](endpoints/): List of "external" endpoints to monitor (per environment)
+- [alerts.yaml](alerts.yaml): Defines the Prometheus Alerts
+- [alertManager](alertManager/): Alert notification configuration and routing (per environment)
+- [rules.yaml](rules.yaml): Prometheus rules (pre-aggregated queries)
