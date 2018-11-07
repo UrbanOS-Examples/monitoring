@@ -336,6 +336,7 @@ pushgateway:
 grafana:
   name: grafana
   replicaCount: 1
+  podManagementPolicy: OrderedReady
   image:
     repository: grafana/grafana
     tag: 5.2.3
