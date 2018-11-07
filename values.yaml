@@ -399,7 +399,7 @@ grafana:
     #   readOnly: true
   # Pass the plugins you want installed as a comma separated list.
   # plugins: "digrich-bubblechart-panel,grafana-clock-panel"
-  plugins: ""
+  plugins: "praj-ams-datasource"
   ## Configure grafana datasources
   ## ref: http://docs.grafana.org/administration/provisioning/#datasources
   ##
