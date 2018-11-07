@@ -44,3 +44,19 @@ serverFiles:
             annotations:
               description: 'Kubernetes cluster has {{ $value | humanize }} memory left. New deployments and cron jobs may fail to launch.'
               summary: 'Kubernetes cluster has less than {{ 1000000000.0 | humanize }} memory available'
+      - name: StreamingDataAggregator
+        rules:
+          - alert: JobFailed
+            expr: kube_job_status_failed{job_name=~"streaming-data-aggregator.*"} != 0
+            labels:
+              severity: error
+            annotations:
+              description: 'Job {{ $labels.job_name }} failed'
+              summary: 'Job {{ $labels.job_name }} failed'
+          - alert: Errors
+            expr: streaming_data_aggregator_errors{type!="kafka-parse"} > 0
+            labels:
+              severity: error
+            annotations:
+              description: 'Job {{ $labels.instance }} failed with error type {{ $labels.type }}.'
+              summary: 'Job {{ $labels.job }} failed.'
