@@ -29,6 +29,11 @@ grafana:
         url: http://prometheus-server.prometheus.svc.cluster.local
         access: proxy
         isDefault: true
+      - name: Ambari
+        type: praj-ams-datasource
+        url: replace_me
+        access: proxy
+        isDefault: false
   dashboards:
     default:
       kube-official-dash:
@@ -51,6 +56,22 @@ grafana:
         gnetId: 6879
         revision: 1
         datasource: Prometheus
+      ams-hbase-home:
+        gnetId: 8847
+        revision: 2
+        datasource: Ambari
+      ams-hbase-misc:
+        gnetId: 8853
+        revision: 3
+        datasource: Ambari
+      ams-hbase-region-servers:
+        gnetId: 8856
+        revision: 4
+        datasource: Ambari
+      scos-hdp-cluster:
+        gnetId: 8892
+        revision: 2
+        datasource: Ambari
   dashboardProviders:
     dashboardproviders.yaml:
       apiVersion: 1
