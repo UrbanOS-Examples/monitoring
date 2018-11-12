@@ -744,6 +744,38 @@ serverFiles:
             target_label: kubernetes_namespace
           - source_labels: [__meta_kubernetes_service_name]
             target_label: kubernetes_name
+      - job_name: 'kerberos-tcp-status'
+        metrics_path: /probe
+        params:
+          module: [tcp_connect]
+        static_configs:
+          - targets: # Add sites to monitor here
+            - iam-master.alm.internal.smartcolumbusos.com:88
+            - iam-master.alm.internal.smartcolumbusos.com:749
+            - iam-replica-0.alm.internal.smartcolumbusos.com:88
+            - iam-replica-0.alm.internal.smartcolumbusos.com:749
+        relabel_configs:
+          - source_labels: [__address__]
+            target_label: __param_target
+          - source_labels: [__param_target]
+            target_label: instance
+          - target_label: __address__
+            replacement: prometheus-prometheus-blackbox-exporter:9115
+      - job_name: 'kerberos-http-status'
+        metrics_path: /probe
+        params:
+          module: [http_2xx_skip_tls]
+        static_configs:
+          - targets: # Add sites to monitor here
+            - https://iam-master.alm.internal.smartcolumbusos.com/ipa/ui   
+            - https://iam-replica-0.alm.internal.smartcolumbusos.com/ipa/ui   
+        relabel_configs:
+          - source_labels: [__address__]
+            target_label: __param_target
+          - source_labels: [__param_target]
+            target_label: instance
+          - target_label: __address__
+            replacement: prometheus-prometheus-blackbox-exporter:9115
       # Example scrape config for pods
       #
       # The relabeling allows the actual pod scrape endpoint to be configured via the
@@ -799,3 +831,14 @@ networkPolicy:
   enabled: false
 
 global: {}
+
+prometheus-blackbox-exporter:
+  config:
+    modules:
+      tcp_connect:
+        prober: tcp
+      http_2xx_skip_tls:
+        prober: http
+        http:
+          tls_config:
+            insecure_skip_verify: true

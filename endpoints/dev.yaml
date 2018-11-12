@@ -31,3 +31,4 @@ extraScrapeConfigs: |
       - target_label: __address__
         # ${namespace}-prometheus-blackbox-exporter:9115
         replacement: prometheus-prometheus-blackbox-exporter:9115
+  
