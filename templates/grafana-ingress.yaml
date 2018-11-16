@@ -23,6 +23,9 @@ metadata:
 {{- end }}
   name: {{ template "prometheus.grafana.fullname" . }}
 spec:
+  backend:
+    serviceName: {{ $serviceName }}
+    servicePort: {{ $servicePort }}
   rules:
   {{- range .Values.grafana.ingress.hosts }}
     {{- $url := splitList "/" . }}

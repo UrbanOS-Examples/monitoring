@@ -23,6 +23,9 @@ metadata:
 {{- end }}
   name: {{ template "prometheus.alertmanager.fullname" . }}
 spec:
+  backend:
+    serviceName: {{ $serviceName }}
+    servicePort: {{ $servicePort }}
   rules:
   {{- range .Values.alertmanager.ingress.hosts }}
     {{- $url := splitList "/" . }}

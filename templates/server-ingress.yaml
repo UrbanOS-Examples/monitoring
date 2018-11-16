@@ -23,6 +23,9 @@ metadata:
 {{- end }}
   name: {{ template "prometheus.server.fullname" . }}
 spec:
+  backend:
+    serviceName: {{ $serviceName }}
+    servicePort: {{ $servicePort }}
   rules:
   {{- range .Values.server.ingress.hosts }}
     {{- $url := splitList "/" . }}
