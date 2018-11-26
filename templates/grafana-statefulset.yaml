@@ -22,10 +22,11 @@ spec:
   podManagementPolicy: {{ .Values.grafana.podManagementPolicy }}
   template:
     metadata:
-    {{- if .Values.grafana.podAnnotations }}
       annotations:
-{{ toYaml .Values.grafana.podAnnotations | indent 8 }}
-    {{- end }}
+        checksum/config: {{ include (print $.Template.BasePath "/grafana-secret.yaml") . | sha256sum }}
+          {{- if .Values.grafana.podAnnotations }}
+            {{ toYaml .Values.grafana.podAnnotations | indent 8 }}
+          {{- end }}
       labels:
         app: {{ template "prometheus.name" . }}
         component: "{{ .Values.grafana.name }}"
