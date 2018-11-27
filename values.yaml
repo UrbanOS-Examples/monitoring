@@ -516,7 +516,7 @@ ldap:
     verbose_logging = true
     [[servers]]
     host = "iam-master.alm.internal.smartcolumbusos.com"
-    port = 389 ## 636 
+    port = 636 
     use_ssl = true
     start_tls = true
     ssl_skip_verify = true
