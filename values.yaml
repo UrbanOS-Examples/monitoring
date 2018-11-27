@@ -518,7 +518,7 @@ ldap:
     host = "iam-master.alm.internal.smartcolumbusos.com"
     port = 636 
     use_ssl = true
-    start_tls = true
+    start_tls = false
     ssl_skip_verify = true
     bind_dn = "uid=%s,cn=users,cn=accounts,dc=internal,dc=smartcolumbusos,dc=com"
     search_filter = "(uid=%s)"
