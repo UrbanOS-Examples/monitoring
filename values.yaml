@@ -523,8 +523,6 @@ ldap:
     bind_dn = "uid=%s,cn=users,cn=accounts,dc=internal,dc=smartcolumbusos,dc=com"
     search_filter = "(uid=%s)"
     search_base_dns = ["cn=users,cn=accounts,dc=internal,dc=smartcolumbusos,dc=com"]
-    [server.attributes]
-    email = "mail"
 ## Grafana's SMTP configuration
 ## NOTE: To enable, grafana.ini must be configured with smtp.enabled
 ## ref: http://docs.grafana.org/installation/configuration/#smtp
