@@ -43,6 +43,11 @@ data "terraform_remote_state" "alm_durable_remote_state" {
   }
 }
 
+resource "local_file" "kubeconfig" {
+  filename = "${path.module}/outputs/kubeconfig"
+  content = "${data.terraform_remote_state.env_remote_state.eks_cluster_kubeconfig}"
+}
+
 data "aws_secretsmanager_secret_version" "bind_user_password" {
   secret_id = "${data.terraform_remote_state.alm_remote_state.bind_user_password_secret_id}"
 }
@@ -50,6 +55,8 @@ data "aws_secretsmanager_secret_version" "bind_user_password" {
 locals {
   ldapPath = "cn=accounts,dc=${replace(data.terraform_remote_state.alm_durable_remote_state.hosted_zone_name, ".", ",dc=")}"
   ldapUri = "ldap://iam-master.${data.terraform_remote_state.alm_remote_state.public_hosted_zone_name}:389/${local.ldapPath}"
+  dns_zone = "${terraform.workspace}.internal.smartcolumbusos.com"
+  datalake_url = "http://datalake.${local.dns_zone}:6188"
 }
 
 resource "local_file" "helm_vars" {
@@ -89,7 +96,7 @@ grafana:
       - "grafana.data.${data.terraform_remote_state.env_remote_state.dns_zone_name}"
   datasources:
     datasources.yaml.datasources:
-    - url: "${datalake_url}"
+    - url: ${local.datalake_url}
 alertmanager:
   ingress:
     hosts:
@@ -97,7 +104,7 @@ alertmanager:
 server:
   ingress:
     hosts:
-      - "prometheus.${dns_zone}"
+      - "prometheus.${local.dns_zone}"
 alertmanagerFiles:
   alertmanager.yml:
     global:
@@ -111,7 +118,7 @@ resource "null_resource" "helm_deploy" {
   provisioner "local-exec" {
     command = <<EOF
 set -x
-
+export KUBECONFIG=${local_file.kubeconfig.filename}
 
 helm init --client-only
 helm dependency update
@@ -121,7 +128,7 @@ helm upgrade --install prometheus . \
     --values alerts.yaml \
     --values rules.yaml \
     --values endpoints/${terraform.workspace}.yaml \
-    --values alertManager/${terraform.workspace}.yaml
+    --values alertManager/${terraform.workspace}.yaml \
     --values ${local_file.helm_vars.filename}
 
 EOF
