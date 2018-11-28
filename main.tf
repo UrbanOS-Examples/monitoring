@@ -86,14 +86,14 @@ global:
 grafana:
   ingress:
     hosts:
-      - "grafana.data.${terraform_remote_state.env_remote_state.dns_zone_name}"
+      - "grafana.data.${data.terraform_remote_state.env_remote_state.dns_zone_name}"
   datasources:
     datasources.yaml.datasources:
     - url: "${datalake_url}"
 alertmanager:
   ingress:
     hosts:
-      - "alertmanager.${terraform_remote_state.env_remote_state.dns_zone_name}"
+      - "alertmanager.${data.terraform_remote_state.env_remote_state.dns_zone_name}"
 server:
   ingress:
     hosts:
