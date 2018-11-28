@@ -67,7 +67,7 @@ def deployMonitoringTo(environment) {
                     --set server.ingress.hosts[0]="prometheus\\.${dns_zone}" \
                     --set alertmanagerFiles."alertmanager\\.yml".global.slack_api_url=$SLACK_URL \
                     --set grafana.datasources."datasources\\.yaml".datasources[1].url="${datalake_url}" \
-                    --set ldap.config.bind_password="""
+                    --set ldap.config = << EOF
                             verbose_logging = true
                             [[servers]]
                             host = "iam-master.alm.internal.smartcolumbusos.com"
@@ -76,8 +76,8 @@ def deployMonitoringTo(environment) {
                             start_tls = false
                             ssl_skip_verify = true
                             bind_dn = "uid=binduser,cn=users,cn=accounts,dc=internal,dc=smartcolumbusos,dc=com"
-                            ldap_bind_password="${bind_password}"
-                            """
+                            ldap_bind_password = "${bind_password}"
+                            EOF
                     --values run-config.yaml \
                     --values alerts.yaml \
                     --values rules.yaml \
