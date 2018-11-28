@@ -1,2 +1,7 @@
 **/*.lock
 charts/
+
+# temp files
+*.swp
+*.DS_Store
+Thumbs.db
