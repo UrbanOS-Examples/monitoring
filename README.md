@@ -36,6 +36,8 @@ kubectl -n prometheus exec -it prometheus-grafana-0 -- grafana-cli admin reset-a
 - [alerts.yaml](alerts.yaml): Defines the Prometheus Alerts
 - [alertManager](alertManager/): Alert notification configuration and routing (per environment)
 - [rules.yaml](rules.yaml): Prometheus rules (pre-aggregated queries)
+- [grafana.yaml](grafana.yaml): Grafana dashboard/datasource configuration and dashboards from the public grafana dashboard repository.
+- [dashboards](dashboards/): Custom grafana dashboards. (These should eventually be moved to live with their own applications.)
 
 ## Minikube
 

@@ -459,6 +459,12 @@ grafana:
   dashboardsConfigMaps: {}
   #  default: ""
 
+  datasource:
+    ambari:
+      # Ambari host name is a required field
+      # host: "ambari.example.com"
+      port: 6188
+
   ## Sidecars that collect the configmaps with specified label and stores the included files them into the respective folders
   ## Requires at least Grafana 5 to work and can't be used together with parameters dashboardProviders, datasources and dashboards
   sidecar:

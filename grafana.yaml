@@ -1,0 +1,57 @@
+grafana:
+  service:
+    type: NodePort
+  sidecar:
+    dashboards:
+      enabled: true
+    datasources:
+      enabled: true
+  datasource:
+    ambari:
+      host: "datalake.dev.internal.smartcolumbusos.com"
+  dashboards:
+    default:
+      kube-official-dash:
+        gnetId: 2
+        revision: 2
+        datasource: Prometheus
+      kube-nodes:
+        gnetId: 7692
+        revision: 1
+        datasource: Prometheus
+      kube-namespace:
+        gnetId: 6876
+        revision: 2
+        datasource: Prometheus
+      kube-cluster:
+        gnetId: 6873
+        revision: 2
+        datasource: Prometheus
+      kube-pods:
+        gnetId: 6879
+        revision: 1
+        datasource: Prometheus
+      ams-hbase-home:
+        gnetId: 8847
+        revision: 2
+        datasource: Ambari
+      ams-hbase-misc:
+        gnetId: 8853
+        revision: 3
+        datasource: Ambari
+      ams-hbase-region-servers:
+        gnetId: 8856
+        revision: 4
+        datasource: Ambari
+  dashboardProviders:
+    dashboardproviders.yaml:
+      apiVersion: 1
+      providers:
+      - name: 'default'
+        orgId: 1
+        folder: ''
+        type: file
+        disableDeletion: false
+        editable: true
+        options:
+          path: /var/lib/grafana/dashboards/default

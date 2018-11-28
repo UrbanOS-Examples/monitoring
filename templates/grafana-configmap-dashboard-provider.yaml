@@ -17,7 +17,7 @@ data:
   provider.yaml: |-
     apiVersion: 1
     providers:
-    - name: 'default'
+    - name: 'configmap'
       orgId: 1
       folder: ''
       type: file

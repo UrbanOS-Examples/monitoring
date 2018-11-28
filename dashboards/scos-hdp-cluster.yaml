@@ -1,0 +1,995 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: scos-hdp-cluster-dashboard
+  labels:
+    grafana_dashboard: "true"
+data:
+  scos-hdp-cluster.json: |-
+      {
+        "__requires": [
+          {
+            "type": "grafana",
+            "id": "grafana",
+            "name": "Grafana",
+            "version": "5.2.3"
+          },
+          {
+            "type": "panel",
+            "id": "graph",
+            "name": "Graph",
+            "version": "5.0.0"
+          },
+          {
+            "type": "datasource",
+            "id": "praj-ams-datasource",
+            "name": "Ambari Metrics",
+            "version": "1.0.1"
+          }
+        ],
+        "editable": true,
+        "graphTooltip": 0,
+        "id": null,
+        "links": [],
+        "panels": [
+          {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "Ambari",
+            "fill": 1,
+            "gridPos": {
+              "h": 9,
+              "w": 8,
+              "x": 0,
+              "y": 0
+            },
+            "id": 15,
+            "legend": {
+              "avg": false,
+              "current": false,
+              "max": false,
+              "min": false,
+              "show": true,
+              "total": false,
+              "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "links": [],
+            "nullPointMode": "null",
+            "percentage": false,
+            "pointradius": 5,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "aggregator": "avg",
+                "alias": "Memory Free",
+                "app": "nodemanager",
+                "hide": false,
+                "metric": "mem_free",
+                "precision": "default",
+                "refId": "C",
+                "transform": "none"
+              },
+              {
+                "aggregator": "avg",
+                "alias": "Memory Used",
+                "app": "nodemanager",
+                "hide": true,
+                "metric": "mem_used",
+                "precision": "default",
+                "refId": "A",
+                "transform": "none"
+              }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "Nodemanager Memory Use",
+            "tooltip": {
+              "shared": true,
+              "sort": 0,
+              "value_type": "individual"
+            },
+            "type": "graph",
+            "xaxis": {
+              "buckets": null,
+              "mode": "time",
+              "name": null,
+              "show": true,
+              "values": []
+            },
+            "yaxes": [
+              {
+                "format": "deckbytes",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              }
+            ],
+            "yaxis": {
+              "align": false,
+              "alignLevel": null
+            }
+          },
+          {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "Ambari",
+            "fill": 1,
+            "gridPos": {
+              "h": 9,
+              "w": 8,
+              "x": 8,
+              "y": 0
+            },
+            "id": 9,
+            "legend": {
+              "avg": false,
+              "current": false,
+              "max": false,
+              "min": false,
+              "show": true,
+              "total": false,
+              "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "links": [],
+            "nullPointMode": "null",
+            "percentage": false,
+            "pointradius": 5,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "aggregator": "avg",
+                "alias": "User",
+                "app": "nodemanager",
+                "expr": "",
+                "format": "time_series",
+                "intervalFactor": 1,
+                "metric": "cpu_user",
+                "precision": "default",
+                "refId": "A",
+                "transform": "none"
+              },
+              {
+                "aggregator": "avg",
+                "alias": "System",
+                "app": "nodemanager",
+                "metric": "cpu_system",
+                "precision": "default",
+                "refId": "B",
+                "transform": "none"
+              }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "Nodemanager Reported CPU Usage",
+            "tooltip": {
+              "shared": true,
+              "sort": 0,
+              "value_type": "individual"
+            },
+            "type": "graph",
+            "xaxis": {
+              "buckets": null,
+              "mode": "time",
+              "name": null,
+              "show": true,
+              "values": []
+            },
+            "yaxes": [
+              {
+                "decimals": 2,
+                "format": "short",
+                "label": "Percent Usage",
+                "logBase": 1,
+                "max": "1",
+                "min": null,
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": false
+              }
+            ],
+            "yaxis": {
+              "align": false,
+              "alignLevel": null
+            }
+          },
+          {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "Ambari",
+            "fill": 1,
+            "gridPos": {
+              "h": 9,
+              "w": 8,
+              "x": 16,
+              "y": 0
+            },
+            "id": 13,
+            "legend": {
+              "avg": false,
+              "current": false,
+              "max": false,
+              "min": false,
+              "show": true,
+              "total": false,
+              "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "links": [],
+            "nullPointMode": "null",
+            "percentage": false,
+            "pointradius": 5,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "aggregator": "avg",
+                "alias": "Read",
+                "app": "nodemanager",
+                "expr": "",
+                "format": "time_series",
+                "intervalFactor": 1,
+                "metric": "read_bytes",
+                "precision": "default",
+                "refId": "A",
+                "transform": "none"
+              },
+              {
+                "aggregator": "avg",
+                "alias": "Write",
+                "app": "nodemanager",
+                "metric": "write_bytes",
+                "precision": "default",
+                "refId": "B",
+                "transform": "none"
+              }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "Nodemanager Disk IO",
+            "tooltip": {
+              "shared": true,
+              "sort": 0,
+              "value_type": "individual"
+            },
+            "type": "graph",
+            "xaxis": {
+              "buckets": null,
+              "mode": "time",
+              "name": null,
+              "show": true,
+              "values": []
+            },
+            "yaxes": [
+              {
+                "format": "decbytes",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": false
+              }
+            ],
+            "yaxis": {
+              "align": false,
+              "alignLevel": null
+            }
+          },
+          {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "Ambari",
+            "fill": 1,
+            "gridPos": {
+              "h": 9,
+              "w": 4,
+              "x": 0,
+              "y": 9
+            },
+            "id": 7,
+            "legend": {
+              "avg": false,
+              "current": false,
+              "max": false,
+              "min": false,
+              "show": true,
+              "total": false,
+              "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "links": [],
+            "nullPointMode": "null",
+            "percentage": false,
+            "pointradius": 5,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "aggregator": "avg",
+                "alias": "Waiting",
+                "app": "nodemanager",
+                "hosts": "",
+                "metric": "jvm.JvmMetrics.ThreadsWaiting",
+                "precision": "default",
+                "refId": "B",
+                "transform": "none"
+              },
+              {
+                "aggregator": "avg",
+                "alias": "New",
+                "app": "nodemanager",
+                "hosts": "",
+                "metric": "jvm.JvmMetrics.ThreadsNew",
+                "precision": "default",
+                "refId": "D",
+                "transform": "none"
+              },
+              {
+                "aggregator": "avg",
+                "alias": "Blocked",
+                "app": "nodemanager",
+                "metric": "jvm.JvmMetrics.ThreadsBlocked",
+                "precision": "default",
+                "refId": "E",
+                "transform": "none"
+              },
+              {
+                "aggregator": "avg",
+                "alias": "Runnable",
+                "app": "nodemanager",
+                "metric": "jvm.JvmMetrics.ThreadsRunnable",
+                "precision": "default",
+                "refId": "F",
+                "transform": "none"
+              },
+              {
+                "aggregator": "avg",
+                "alias": "Terminated",
+                "app": "nodemanager",
+                "metric": "jvm.JvmMetrics.ThreadsTerminated",
+                "precision": "default",
+                "refId": "G",
+                "transform": "none"
+              },
+              {
+                "aggregator": "avg",
+                "alias": "Timed Waiting",
+                "app": "nodemanager",
+                "hosts": "",
+                "metric": "jvm.JvmMetrics.ThreadsTimedWaiting",
+                "precision": "default",
+                "refId": "H",
+                "transform": "none"
+              }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "NodeManager Server CPU",
+            "tooltip": {
+              "shared": true,
+              "sort": 0,
+              "value_type": "individual"
+            },
+            "type": "graph",
+            "xaxis": {
+              "buckets": null,
+              "mode": "time",
+              "name": null,
+              "show": true,
+              "values": []
+            },
+            "yaxes": [
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              }
+            ],
+            "yaxis": {
+              "align": false,
+              "alignLevel": null
+            }
+          },
+          {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "Ambari",
+            "fill": 1,
+            "gridPos": {
+              "h": 9,
+              "w": 4,
+              "x": 4,
+              "y": 9
+            },
+            "id": 3,
+            "legend": {
+              "avg": false,
+              "current": false,
+              "max": false,
+              "min": false,
+              "show": true,
+              "total": false,
+              "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "links": [],
+            "nullPointMode": "null",
+            "percentage": false,
+            "pointradius": 5,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "aggregator": "avg",
+                "alias": "Waiting",
+                "app": "ams-hbase",
+                "hosts": "",
+                "metric": "jvm.Master.JvmMetrics.ThreadsWaiting",
+                "precision": "default",
+                "refId": "B",
+                "transform": "none"
+              },
+              {
+                "aggregator": "avg",
+                "alias": "New",
+                "app": "ams-hbase",
+                "metric": "jvm.Master.JvmMetrics.ThreadsNew",
+                "precision": "default",
+                "refId": "D",
+                "transform": "none"
+              },
+              {
+                "aggregator": "avg",
+                "alias": "Blocked",
+                "app": "ams-hbase",
+                "metric": "jvm.Master.JvmMetrics.ThreadsBlocked",
+                "precision": "default",
+                "refId": "E",
+                "transform": "none"
+              },
+              {
+                "aggregator": "avg",
+                "alias": "Runnable",
+                "app": "ams-hbase",
+                "metric": "jvm.Master.JvmMetrics.ThreadsRunnable",
+                "precision": "default",
+                "refId": "F",
+                "transform": "none"
+              },
+              {
+                "aggregator": "avg",
+                "alias": "Terminated",
+                "app": "ams-hbase",
+                "metric": "jvm.Master.JvmMetrics.ThreadsTerminated",
+                "precision": "default",
+                "refId": "G",
+                "transform": "none"
+              },
+              {
+                "aggregator": "avg",
+                "alias": "Timed Waiting",
+                "app": "ams-hbase",
+                "hosts": "",
+                "metric": "jvm.Master.JvmMetrics.ThreadsTimedWaiting",
+                "precision": "default",
+                "refId": "H",
+                "transform": "none"
+              }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "hbase Server CPU",
+            "tooltip": {
+              "shared": true,
+              "sort": 0,
+              "value_type": "individual"
+            },
+            "type": "graph",
+            "xaxis": {
+              "buckets": null,
+              "mode": "time",
+              "name": null,
+              "show": true,
+              "values": []
+            },
+            "yaxes": [
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              }
+            ],
+            "yaxis": {
+              "align": false,
+              "alignLevel": null
+            }
+          },
+          {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "Ambari",
+            "fill": 1,
+            "gridPos": {
+              "h": 9,
+              "w": 4,
+              "x": 8,
+              "y": 9
+            },
+            "id": 5,
+            "legend": {
+              "avg": false,
+              "current": false,
+              "max": false,
+              "min": false,
+              "show": true,
+              "total": false,
+              "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "links": [],
+            "nullPointMode": "null",
+            "percentage": false,
+            "pointradius": 5,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "aggregator": "avg",
+                "alias": "Total Threads",
+                "app": "ambari_server",
+                "expr": "",
+                "format": "time_series",
+                "intervalFactor": 1,
+                "metric": "jvm.threads.count",
+                "precision": "default",
+                "refId": "A",
+                "transform": "none"
+              },
+              {
+                "aggregator": "avg",
+                "alias": "Waiting",
+                "app": "ambari_server",
+                "metric": "jvm.threads.waiting.count",
+                "precision": "default",
+                "refId": "B",
+                "transform": "none"
+              },
+              {
+                "aggregator": "avg",
+                "alias": "Deadlocked",
+                "app": "ambari_server",
+                "metric": "jvm.threads.deadlock.count",
+                "precision": "default",
+                "refId": "C",
+                "transform": "none"
+              },
+              {
+                "aggregator": "avg",
+                "alias": "New",
+                "app": "ambari_server",
+                "metric": "jvm.threads.new.count",
+                "precision": "default",
+                "refId": "D",
+                "transform": "none"
+              },
+              {
+                "aggregator": "avg",
+                "alias": "Blocked",
+                "app": "ambari_server",
+                "metric": "jvm.threads.blocked.count",
+                "precision": "default",
+                "refId": "E",
+                "transform": "none"
+              },
+              {
+                "aggregator": "avg",
+                "alias": "Runnable",
+                "app": "ambari_server",
+                "metric": "jvm.threads.runnable.count",
+                "precision": "default",
+                "refId": "F",
+                "transform": "none"
+              },
+              {
+                "aggregator": "avg",
+                "alias": "Terminated",
+                "app": "ambari_server",
+                "metric": "jvm.threads.terminated.count",
+                "precision": "default",
+                "refId": "G",
+                "transform": "none"
+              },
+              {
+                "aggregator": "avg",
+                "alias": "Timed Waiting",
+                "app": "ambari_server",
+                "metric": "jvm.threads.timed_waiting.count",
+                "precision": "default",
+                "refId": "H",
+                "transform": "none"
+              }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "Ambari Server CPU",
+            "tooltip": {
+              "shared": true,
+              "sort": 0,
+              "value_type": "individual"
+            },
+            "type": "graph",
+            "xaxis": {
+              "buckets": null,
+              "mode": "time",
+              "name": null,
+              "show": true,
+              "values": []
+            },
+            "yaxes": [
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              }
+            ],
+            "yaxis": {
+              "align": false,
+              "alignLevel": null
+            }
+          },
+          {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "Ambari",
+            "fill": 1,
+            "gridPos": {
+              "h": 9,
+              "w": 6,
+              "x": 12,
+              "y": 9
+            },
+            "id": 11,
+            "legend": {
+              "avg": false,
+              "current": false,
+              "max": false,
+              "min": false,
+              "show": true,
+              "total": false,
+              "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "links": [],
+            "nullPointMode": "null",
+            "percentage": false,
+            "pointradius": 5,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "aggregator": "avg",
+                "alias": "Disk Free",
+                "app": "nodemanager",
+                "expr": "",
+                "format": "time_series",
+                "hide": false,
+                "intervalFactor": 1,
+                "metric": "disk_free",
+                "precision": "default",
+                "refId": "A",
+                "transform": "none"
+              },
+              {
+                "aggregator": "avg",
+                "app": "nodemanager",
+                "metric": "disk_used",
+                "precision": "default",
+                "refId": "B",
+                "transform": "none"
+              }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "Nodemanager Disk Usage",
+            "tooltip": {
+              "shared": true,
+              "sort": 0,
+              "value_type": "individual"
+            },
+            "transparent": false,
+            "type": "graph",
+            "xaxis": {
+              "buckets": null,
+              "mode": "time",
+              "name": null,
+              "show": true,
+              "values": []
+            },
+            "yaxes": [
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              }
+            ],
+            "yaxis": {
+              "align": false,
+              "alignLevel": null
+            }
+          },
+          {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "Ambari",
+            "fill": 1,
+            "gridPos": {
+              "h": 9,
+              "w": 6,
+              "x": 18,
+              "y": 9
+            },
+            "id": 17,
+            "legend": {
+              "avg": false,
+              "current": false,
+              "max": false,
+              "min": false,
+              "show": true,
+              "total": false,
+              "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "links": [],
+            "nullPointMode": "null",
+            "percentage": false,
+            "pointradius": 5,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "aggregator": "avg",
+                "alias": "Max Time",
+                "app": "ams-hbase",
+                "expr": "",
+                "format": "time_series",
+                "hosts": "",
+                "intervalFactor": 1,
+                "metric": "regionserver.Server.Get_max",
+                "precision": "default",
+                "refId": "A",
+                "transform": "none"
+              },
+              {
+                "aggregator": "avg",
+                "alias": "Mean Time",
+                "app": "ams-hbase",
+                "metric": "regionserver.Server.Get_mean",
+                "precision": "default",
+                "refId": "B",
+                "transform": "none"
+              },
+              {
+                "aggregator": "avg",
+                "alias": "Min Time",
+                "app": "ams-hbase",
+                "metric": "regionserver.Server.Get_min",
+                "precision": "default",
+                "refId": "C",
+                "transform": "none"
+              }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "Region Server Get Response Times",
+            "tooltip": {
+              "shared": true,
+              "sort": 0,
+              "value_type": "individual"
+            },
+            "type": "graph",
+            "xaxis": {
+              "buckets": null,
+              "mode": "time",
+              "name": null,
+              "show": true,
+              "values": []
+            },
+            "yaxes": [
+              {
+                "format": "ms",
+                "label": "",
+                "logBase": 1,
+                "max": null,
+                "min": "0",
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": false
+              }
+            ],
+            "yaxis": {
+              "align": false,
+              "alignLevel": null
+            }
+          }
+        ],
+        "schemaVersion": 16,
+        "style": "dark",
+        "tags": [],
+        "templating": {
+          "list": []
+        },
+        "time": {
+          "from": "now-6h",
+          "to": "now"
+        },
+        "timepicker": {
+          "refresh_intervals": [
+            "5s",
+            "10s",
+            "30s",
+            "1m",
+            "5m",
+            "15m",
+            "30m",
+            "1h",
+            "2h",
+            "1d"
+          ],
+          "time_options": [
+            "5m",
+            "15m",
+            "1h",
+            "6h",
+            "12h",
+            "24h",
+            "2d",
+            "7d",
+            "30d"
+          ]
+        },
+        "timezone": "",
+        "title": "SCOS - HDP Cluster",
+        "uid": "jV8Ameaiz",
+        "version": 14
+      }
