@@ -51,6 +51,8 @@ def deployMonitoringTo(environment) {
         def dns_zone = environment + '.internal.smartcolumbusos.com'
         def datalake_url = "http://datalake.${dns_zone}:6188"
 
+        def ldap_bind_password = sh("aws --region=us-east-2 secretsmanager get-secret-value --secret-id alm-bind-user-password | jq -r .SecretString", true)
+
         withCredentials([string(credentialsId: "slack-webhook-${environment}", variable: 'SLACK_URL')]) {
             sh("""#!/bin/bash
 
@@ -65,6 +67,17 @@ def deployMonitoringTo(environment) {
                     --set server.ingress.hosts[0]="prometheus\\.${dns_zone}" \
                     --set alertmanagerFiles."alertmanager\\.yml".global.slack_api_url=$SLACK_URL \
                     --set grafana.datasources."datasources\\.yaml".datasources[1].url="${datalake_url}" \
+                    --set ldap.config=EOF
+verbose_logging = true
+[[servers]]
+host = "iam-master.alm.internal.smartcolumbusos.com"
+port = 636
+use_ssl = true
+start_tls = false
+ssl_skip_verify = true
+bind_dn = "binduser,cn=users,cn=accounts,dc=internal,dc=smartcolumbusos,dc=com"
+bind_password = ${ldap_bind_password}
+EOF
                     --values run-config.yaml \
                     --values alerts.yaml \
                     --values rules.yaml \
