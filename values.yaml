@@ -490,7 +490,7 @@ grafana.ini:
   log:
     mode: console
     ## uncomment line below to get ldap debug logs
-    #filters: ldap:debug
+    filters: ldap:debug
   grafana_net:
     url: https://grafana.net
 
