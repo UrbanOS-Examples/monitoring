@@ -1,0 +1,39 @@
+global:
+  ingress:
+    annotations:
+      alb.ingress.kubernetes.io/scheme: "internet-facing"
+      alb.ingress.kubernetes.io/subnets: "subnet-b2167af9,subnet-6aa8eb13,subnet-1d104c47"
+      alb.ingress.kubernetes.io/security-groups: "sg-0c5cf1805c74e53a5"
+      alb.ingress.kubernetes.io/certificate-arn: "arn:aws:acm:us-west-2:073132350570:certificate/9674edaa-523a-4f0c-89a3-0fab8aa78b99"
+    domain: "kylo.dev.internal.smartcolumbusos.com"
+  entityLevelSecurity: true
+grafana:
+  ldap:
+    config: |-
+      verbose_logging = true
+      [[servers]]
+      host = "iam-master.alm.internal.smartcolumbusos.com"
+      port = 636
+      use_ssl = true
+      start_tls = false
+      ssl_skip_verify = true
+      bind_dn = "uid=binduser,cn=users,cn=accounts,dc=internal,dc=smartcolumbusos,dc=com"
+      ldap_bind_password = "w4ruq2Cki0b9uihNM5cRqe9vEx0Ndk0AUPRajmws"
+  ingress:
+    hosts:
+      - "grafana.data.dev.internal.smartcolumbusos.com"
+  datasources:
+    datasources.yaml.datasources:
+    - url: http://datalake.dev.internal.smartcolumbusos.com:6188
+alertmanager:
+  ingress:
+    hosts:
+      - "alertmanager.dev.internal.smartcolumbusos.com"
+server:
+  ingress:
+    hosts:
+      - "prometheus.dev.internal.smartcolumbusos.com"
+alertmanagerFiles:
+  alertmanager.yml:
+    global:
+      slack_api_url: "slack.com" # TODO: SLACK_URL
