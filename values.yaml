@@ -511,7 +511,7 @@ ldap:
   # for Grafana in a key `ldap-toml`.
   existingSecret: ""
   # `config` is the content of `ldap.toml` that will be stored in the created secret
-  config: ""
+  config: "replaceme"
 ## Grafana's SMTP configuration
 ## NOTE: To enable, grafana.ini must be configured with smtp.enabled
 ## ref: http://docs.grafana.org/installation/configuration/#smtp
