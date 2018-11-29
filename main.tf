@@ -70,15 +70,9 @@ global:
       alb.ingress.kubernetes.io/security-groups: "${data.terraform_remote_state.env_remote_state.allow_all_security_group}"
       alb.ingress.kubernetes.io/certificate-arn: "${data.terraform_remote_state.env_remote_state.tls_certificate_arn}"
     domain: "kylo.${data.terraform_remote_state.env_remote_state.dns_zone_name}"
+  entityLevelSecurity: true
+grafana:
   ldap:
-    enabled: true
-    ldapUri: "${local.ldapUri}"
-    authDn: "uid=binduser,cn=users,${local.ldapPath}"
-    # password: "${data.aws_secretsmanager_secret_version.bind_user_password.secret_string}"
-    enableGroups: true
-    userDnPatterns: "uid={0},cn=users"
-    groupNameAttr: "cn"
-    groupsBase: "cn=groups"
     config: |-
       verbose_logging = true
       [[servers]]
@@ -89,8 +83,6 @@ global:
       ssl_skip_verify = true
       bind_dn = "uid=binduser,cn=users,cn=accounts,dc=internal,dc=smartcolumbusos,dc=com"
       ldap_bind_password = "${data.aws_secretsmanager_secret_version.bind_user_password.secret_string}"
-  entityLevelSecurity: true
-grafana:
   ingress:
     hosts:
       - "grafana.data.${data.terraform_remote_state.env_remote_state.dns_zone_name}"
@@ -118,19 +110,20 @@ resource "null_resource" "helm_deploy" {
   provisioner "local-exec" {
     command = <<EOF
 set -x
+cd chart
+
 export KUBECONFIG=${local_file.kubeconfig.filename}
 
 helm init --client-only
 helm dependency update
 helm upgrade --install prometheus . \
     --namespace=prometheus \
-    --values run-config.yaml \
-    --values alerts.yaml \
-    --values rules.yaml \
-    --values endpoints/${terraform.workspace}.yaml \
-    --values alertManager/${terraform.workspace}.yaml \
-    --values ${local_file.helm_vars.filename}
-
+    --values ${local_file.helm_vars.filename} \
+    --values ${path.module}/run-config.yaml \
+    --values ${path.module}/alerts.yaml \
+    --values ${path.module}/rules.yaml \
+    --values ${path.module}/endpoints/${terraform.workspace}.yaml \
+    --values ${path.module}/alertManager/${terraform.workspace}.yaml
 EOF
   }
 
