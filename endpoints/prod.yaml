@@ -10,6 +10,7 @@ extraScrapeConfigs: |
         - https://streaming.smartcolumbusos.com/socket/healthcheck
         - https://ckan.smartcolumbusos.com/
         - https://www.smartcolumbusos.com/
+        - https://survey.smartcolumbusos.com/
     relabel_configs:
       - source_labels: [__address__]
         target_label: __param_target
