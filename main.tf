@@ -77,7 +77,7 @@ resource "local_file" "helm_vars" {
         [[servers]]
         host = "iam-master.alm.internal.smartcolumbusos.com"
         port = 636
-        use_ssl = true
+        use_ssl = false
         start_tls = false
         ssl_skip_verify = true
         bind_dn = "uid=binduser,cn=users,cn=accounts,dc=internal,dc=smartcolumbusos,dc=com"
