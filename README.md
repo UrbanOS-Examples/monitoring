@@ -22,9 +22,27 @@ kubectl --namespace prometheus get secret prometheus-grafana -o jsonpath='{.data
     | base64 --decode && echo
 ```
 
+There's a bug in the chart that causes the secret to change when helm upgrade is run, but Grafana doesn't pick up the new admin password.
+
+To sync things back up, retrieve the password, then reset it via the `grafana-cli`.
+
+```bash
+kubectl -n prometheus exec -it prometheus-grafana-0 -- grafana-cli admin reset-admin-password --homepath /usr/share/grafana {password}
+```
+
 ## Directory Structure
 
 - [endpoints](endpoints/): List of "external" endpoints to monitor (per environment)
 - [alerts.yaml](alerts.yaml): Defines the Prometheus Alerts
 - [alertManager](alertManager/): Alert notification configuration and routing (per environment)
 - [rules.yaml](rules.yaml): Prometheus rules (pre-aggregated queries)
+
+## Minikube
+
+This stack takes quite a bit of resources to run.
+It's recommended to run with at least 6GB of memory and at least 3 cpus.
+
+```bash
+minikube start --memory 6144 --cpus 3
+helm upgrade --install prometheus . --namespace monitoring
+```
