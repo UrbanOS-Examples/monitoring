@@ -76,18 +76,13 @@ resource "local_file" "helm_vars" {
         verbose_logging = true
         [[servers]]
         host = "iam-master.alm.internal.smartcolumbusos.com"
-        port = 389
-        use_ssl = false
-        start_tls = false
+        port = 389 ## 636
+        use_ssl = true
+        start_tls = true
         ssl_skip_verify = true
         bind_dn = "uid=%s,cn=users,cn=accounts,dc=internal,dc=smartcolumbusos,dc=com"
-        # bind_password = "${data.aws_secretsmanager_secret_version.bind_user_password.secret_string}"
         search_filter = "(uid=%s)"
         search_base_dns = ["cn=users,cn=accounts,dc=internal,dc=smartcolumbusos,dc=com"]
-        [[servers.group_mappings]]
-        group_dn = "*"
-        org_role = "Admin"
-        grafana_admin = true
     grafana:
       ingress:
         hosts:
