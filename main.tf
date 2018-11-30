@@ -84,6 +84,9 @@ resource "local_file" "helm_vars" {
         bind_password = "${data.aws_secretsmanager_secret_version.bind_user_password.secret_string}"
         search_filter = "(uid=%s)"
         search_base_dns = ["cn=users,cn=accounts,dc=internal,dc=smartcolumbusos,dc=com"]
+        [server.attributes]
+        username="uid"
+        email="mail"
     grafana:
       ingress:
         hosts:
