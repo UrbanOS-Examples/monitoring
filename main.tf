@@ -76,7 +76,7 @@ resource "local_file" "helm_vars" {
         verbose_logging = true
         [[servers]]
         host = "iam-master.alm.internal.smartcolumbusos.com"
-        port = 636
+        port = 389
         use_ssl = false
         start_tls = false
         ssl_skip_verify = true
