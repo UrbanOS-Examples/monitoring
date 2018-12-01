@@ -13,7 +13,7 @@ metadata:
   annotations:
 {{ toYaml . | indent 4 }}
 {{- end }}
-{{- if or .Values.grafana.sidecar.dashboards.enabled .Values.grafana.sidecar.datasources.enabled }}
+{{- if or .Values.grafana.sidecar.dashboards.enabled .Values.grafana.initContainer.datasources.enabled }}
 rules:
 - apiGroups: [""] # "" indicates the core API group
   resources: ["configmaps"]

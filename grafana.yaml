@@ -4,6 +4,7 @@ grafana:
   sidecar:
     dashboards:
       enabled: true
+  initContainer:
     datasources:
       enabled: true
   datasource:
