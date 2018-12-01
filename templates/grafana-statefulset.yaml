@@ -23,10 +23,13 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: {{ include (print $.Template.BasePath "/grafana-secret.yaml") . | sha256sum }}
-          {{- if .Values.grafana.podAnnotations }}
-            {{ toYaml .Values.grafana.podAnnotations | indent 8 }}
-          {{- end }}
+        # Restart the Pod if the datasources change
+        # https://github.com/helm/helm/blob/master/docs/charts_tips_and_tricks.md#user-content-automatically-roll-deployments-when-configmaps-or-secrets-change
+        checksum/secret: {{ include (print $.Template.BasePath "/grafana-secret.yaml") . | sha256sum }}
+        checksum/datasources: {{ include (print $.Template.BasePath "/grafana-configmap-datasource.yaml") . | sha256sum }}
+        {{- if .Values.grafana.podAnnotations }}
+{{ toYaml .Values.grafana.podAnnotations | indent 8 }}
+        {{- end }}
       labels:
         app: {{ template "prometheus.name" . }}
         component: "{{ .Values.grafana.name }}"
