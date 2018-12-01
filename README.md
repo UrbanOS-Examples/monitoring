@@ -31,6 +31,16 @@ minikube start --memory 6144 --cpus 3
 helm upgrade --install prometheus . --namespace monitoring
 ```
 
+For a "fully" configured version, the following config files are available.
+
+```bash
+helm upgrade --install prometheus . \
+  --namespace monitoring \
+  --values rules.yaml \
+  --values alerts.yaml \
+  --values grafana.yaml
+```
+
 ## Grafana
 
 ### Retrieving Credentials
