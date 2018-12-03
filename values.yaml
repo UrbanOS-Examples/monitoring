@@ -496,10 +496,10 @@ grafana.ini:
 
 ## LDAP Authentication can be enabled with the following values on grafana.ini
 ## NOTE: Grafana will fail to start if the value for ldap.toml is invalid
-  auth.ldap:
-    enabled: true
-    allow_sign_up: true
-    config_file: /etc/grafana/ldap.toml
+  # auth.ldap:
+  #   enabled: true
+  #   allow_sign_up: true
+  #   config_file: /etc/grafana/ldap.toml
 
 ## Grafana's LDAP configuration
 ## Templated by the template in _helpers.tpl
