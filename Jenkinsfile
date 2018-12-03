@@ -64,13 +64,17 @@ def deployMonitoringTo(environment) {
                     --set alertmanager.ingress.hosts[0]="alertmanager\\.${dns_zone}" \
                     --set server.ingress.hosts[0]="prometheus\\.${dns_zone}" \
                     --set alertmanagerFiles."alertmanager\\.yml".global.slack_api_url=$SLACK_URL \
-                    --set grafana.datasources."datasources\\.yaml".datasources[1].url="${datalake_url}" \
+                    --set grafana.datasource.ambari.url="${datalake_url}" \
+                    --values grafana.yaml \
                     --values run-config.yaml \
                     --values alerts.yaml \
                     --values rules.yaml \
                     --values endpoints/${environment}.yaml \
                     --values alertManager/${environment}.yaml
             """.trim())
+
+            // TODO: Find a better place to keep the hadoop dashboards now that we've decoupled them
+            sh "kubectl --namespace prometheus apply -f dashboards/scos-hdp-cluster.yaml"
         }
     }
 }

@@ -23,10 +23,13 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: {{ include (print $.Template.BasePath "/grafana-secret.yaml") . | sha256sum }}
-          {{- if .Values.grafana.podAnnotations }}
-            {{ toYaml .Values.grafana.podAnnotations | indent 8 }}
-          {{- end }}
+        # Restart the Pod if the datasources change
+        # https://github.com/helm/helm/blob/master/docs/charts_tips_and_tricks.md#user-content-automatically-roll-deployments-when-configmaps-or-secrets-change
+        checksum/secret: {{ include (print $.Template.BasePath "/grafana-secret.yaml") . | sha256sum }}
+        checksum/datasources: {{ include (print $.Template.BasePath "/grafana-configmap-datasource.yaml") . | sha256sum }}
+        {{- if .Values.grafana.podAnnotations }}
+{{ toYaml .Values.grafana.podAnnotations | indent 8 }}
+        {{- end }}
       labels:
         app: {{ template "prometheus.name" . }}
         component: "{{ .Values.grafana.name }}"
@@ -43,8 +46,10 @@ spec:
 {{- if .Values.grafana.priorityClassName }}
       priorityClassName: "{{ .Values.grafana.priorityClassName }}"
 {{- end }}
-{{- if .Values.grafana.dashboards }}
+{{- if or .Values.dashboards .Values.grafana.initContainer.datasources.enabled }}
       initContainers:
+{{- end}}
+{{- if .Values.grafana.dashboards }}
         - name: download-dashboards
           image: "{{ .Values.grafana.downloadDashboardsImage.repository }}:{{ .Values.grafana.downloadDashboardsImage.tag }}"
           imagePullPolicy: {{ .Values.grafana.downloadDashboardsImage.pullPolicy }}
@@ -61,6 +66,21 @@ spec:
               mountPath: {{ .mountPath }}
               readOnly: {{ .readOnly }}
           {{- end }}
+{{- end }}
+{{- if .Values.grafana.initContainer.datasources.enabled }}
+        - name: {{ .Values.grafana.name }}-init-datasources
+          image: "{{ .Values.grafana.initContainer.image }}"
+          imagePullPolicy: {{ .Values.grafana.initContainer.imagePullPolicy }}
+          env:
+            - name: LABEL
+              value: "{{ .Values.grafana.initContainer.datasources.label }}"
+            - name: FOLDER
+              value: "/etc/grafana/provisioning/datasources"
+          resources:
+{{ include "prometheus.resources" . | trim | indent 12 }}
+          volumeMounts:
+            - name: datasources-volume
+              mountPath: "/etc/grafana/provisioning/datasources"
 {{- end }}
       {{- if .Values.grafana.image.pullSecrets }}
       imagePullSecrets:
@@ -83,21 +103,6 @@ spec:
           volumeMounts:
             - name: sc-dashboard-volume
               mountPath: {{ .Values.grafana.sidecar.dashboards.folder | quote }}
-{{- end}}
-{{- if .Values.grafana.sidecar.datasources.enabled }}
-        - name: {{ .Values.grafana.name }}-sc-datasources
-          image: "{{ .Values.grafana.sidecar.image }}"
-          imagePullPolicy: {{ .Values.grafana.sidecar.imagePullPolicy }}
-          env:
-            - name: LABEL
-              value: "{{ .Values.grafana.sidecar.datasources.label }}"
-            - name: FOLDER
-              value: "/etc/grafana/provisioning/datasources"
-          resources:
-{{ include "prometheus.resources" . | trim | indent 12 }}
-          volumeMounts:
-            - name: sc-datasources-volume
-              mountPath: "/etc/grafana/provisioning/datasources"
 {{- end}}
         - name: {{ .Values.grafana.name }}
           image: "{{ .Values.grafana.image.repository }}:{{ .Values.grafana.image.tag }}"
@@ -145,8 +150,8 @@ spec:
               mountPath: "/etc/grafana/provisioning/dashboards/sc-dashboardproviders.yaml"
               subPath: provider.yaml
 {{- end}}
-{{- if .Values.grafana.sidecar.datasources.enabled }}
-            - name: sc-datasources-volume
+{{- if .Values.grafana.initContainer.datasources.enabled }}
+            - name: datasources-volume
               mountPath: "/etc/grafana/provisioning/datasources"
 {{- end}}
             - name: storage
@@ -255,7 +260,23 @@ spec:
             items:
               - key: ldap-toml
                 path: ldap.toml
-      {{- if .Values.grafana.persistentVolume.enabled }}
+      {{- if .Values.grafana.sidecar.dashboards.enabled }}
+        - name: sc-dashboard-volume
+          emptyDir: {}
+        - name: sc-dashboard-provider
+          configMap:
+            name: {{ template "prometheus.grafana.fullname" . }}-config-dashboards
+      {{- end }}
+      {{- if .Values.grafana.initContainer.datasources.enabled }}
+        - name: datasources-volume
+          emptyDir: {}
+      {{- end -}}
+      {{- range .Values.grafana.extraSecretMounts }}
+        - name: {{ .name }}
+          secret:
+            secretName: {{ .secretName }}
+      {{- end }}
+{{- if .Values.grafana.persistentVolume.enabled }}
   volumeClaimTemplates:
     - metadata:
         name: storage
@@ -280,19 +301,3 @@ spec:
         - name: storage
           emptyDir: {}
 {{- end }}
-      {{- if .Values.grafana.sidecar.dashboards.enabled }}
-        - name: sc-dashboard-volume
-          emptyDir: {}
-        - name: sc-dashboard-provider
-          configMap:
-            name: {{ template "prometheus.grafana.fullname" . }}-config-dashboards
-      {{- end }}
-      {{- if .Values.grafana.sidecar.datasources.enabled }}
-        - name: sc-datasources-volume
-          emptyDir: {}
-      {{- end -}}
-      {{- range .Values.grafana.extraSecretMounts }}
-        - name: {{ .name }}
-          secret:
-            secretName: {{ .secretName }}
-      {{- end }}

@@ -1,0 +1,21 @@
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "prometheus.grafana.fullname" . }}-datasources
+  labels:
+    grafana_datasource: "true"
+data:
+  datasources.yaml: |
+    apiVersion: 1
+    datasources:
+    - name: Prometheus
+      type: prometheus
+      url: http://{{ template "prometheus.server.fullname" . }}
+      access: proxy
+      isDefault: true
+    - name: Ambari
+      type: praj-ams-datasource
+      url: http://ambari:{{ .Values.grafana.datasource.ambari.port }}
+      access: proxy
+      isDefault: false
