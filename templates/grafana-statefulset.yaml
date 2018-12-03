@@ -260,7 +260,23 @@ spec:
             items:
               - key: ldap-toml
                 path: ldap.toml
-      {{- if .Values.grafana.persistentVolume.enabled }}
+      {{- if .Values.grafana.sidecar.dashboards.enabled }}
+        - name: sc-dashboard-volume
+          emptyDir: {}
+        - name: sc-dashboard-provider
+          configMap:
+            name: {{ template "prometheus.grafana.fullname" . }}-config-dashboards
+      {{- end }}
+      {{- if .Values.grafana.initContainer.datasources.enabled }}
+        - name: datasources-volume
+          emptyDir: {}
+      {{- end -}}
+      {{- range .Values.grafana.extraSecretMounts }}
+        - name: {{ .name }}
+          secret:
+            secretName: {{ .secretName }}
+      {{- end }}
+{{- if .Values.grafana.persistentVolume.enabled }}
   volumeClaimTemplates:
     - metadata:
         name: storage
@@ -285,19 +301,3 @@ spec:
         - name: storage
           emptyDir: {}
 {{- end }}
-      {{- if .Values.grafana.sidecar.dashboards.enabled }}
-        - name: sc-dashboard-volume
-          emptyDir: {}
-        - name: sc-dashboard-provider
-          configMap:
-            name: {{ template "prometheus.grafana.fullname" . }}-config-dashboards
-      {{- end }}
-      {{- if .Values.grafana.initContainer.datasources.enabled }}
-        - name: datasources-volume
-          emptyDir: {}
-      {{- end -}}
-      {{- range .Values.grafana.extraSecretMounts }}
-        - name: {{ .name }}
-          secret:
-            secretName: {{ .secretName }}
-      {{- end }}
