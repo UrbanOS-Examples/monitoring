@@ -69,7 +69,6 @@ def deployMonitoringTo(environment) {
                     --values run-config.yaml \
                     --values alerts.yaml \
                     --values rules.yaml \
-                    --values dashboards/scos-hdp-cluster.yaml \
                     --values endpoints/${environment}.yaml \
                     --values alertManager/${environment}.yaml
 
