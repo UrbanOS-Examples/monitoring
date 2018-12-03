@@ -22,6 +22,9 @@ grafana:
     size: 5Gi
 
 grafana.ini:
+  # server:
+  #   protocol: https
+  #   cert_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
   auth.ldap:
     enabled: true
     allow_sign_up: true
