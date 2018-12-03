@@ -20,7 +20,7 @@ grafana:
     accessModes:
       - ReadWriteOnce
     size: 5Gi
-  datasources: 
+  datasources:
     datasources.yaml:
       apiVersion: 1
       datasources:
@@ -84,6 +84,25 @@ grafana:
         editable: true
         options:
           path: /var/lib/grafana/dashboards/default
+
+ldap:
+  config: |-
+    verbose_logging = true
+    [[servers]]
+    host = "iam-master.alm.internal.smartcolumbusos.com"
+    port = 636
+    use_ssl = true
+    start_tls = false
+    ssl_skip_verify = true
+    bind_dn = "uid=%s,cn=users,cn=accounts,dc=internal,dc=smartcolumbusos,dc=com"
+    search_filter = "(uid=%s)"
+    search_base_dns = ["cn=users,cn=accounts,dc=internal,dc=smartcolumbusos,dc=com"]
+    [servers.attributes]
+    name = "givenName"
+    surname = "sn"
+    username = "uid"
+    member_of = "memberOf"
+    email =  "mail"
 
 alertmanager:
   service:
