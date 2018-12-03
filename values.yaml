@@ -25,9 +25,6 @@ serviceAccounts:
   grafana:
     create: true
     name:
-  externalDns:
-    create: true
-    name:
 
 alertmanager:
   enabled: true
@@ -811,24 +808,6 @@ serverFiles:
           - source_labels: [__meta_kubernetes_pod_name]
             action: replace
             target_label: kubernetes_pod_name
-
-externalDns:
-  enabled: false
-  name: external-dns
-  image:
-    repository: registry.opensource.zalan.do/teapot/external-dns
-    tag: v0.5.5
-    pullPolicy: IfNotPresent
-  pod:
-    labels: {}
-  priorityClassName: ""
-  args: {}
-  extraArgs: {}
-  tolerations: []
-  nodeSelector: {}
-  podAnnotations: {}
-  replicaCount: 1
-  securityContext: {}
 
 networkPolicy:
   enabled: false
