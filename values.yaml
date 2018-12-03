@@ -489,6 +489,8 @@ grafana.ini:
     check_for_updates: true
   log:
     mode: console
+    ## uncomment line below to get ldap debug logs
+    #filters: ldap:debug
   grafana_net:
     url: https://grafana.net
 
@@ -510,15 +512,6 @@ ldap:
   existingSecret: ""
   # `config` is the content of `ldap.toml` that will be stored in the created secret
   config: ""
-  # config: |-
-  #   verbose_logging = true
-  #   [[servers]]
-  #   host = "my-ldap-server"
-  #   port = 636
-  #   use_ssl = true
-  #   start_tls = false
-  #   ssl_skip_verify = false
-  #   bind_dn = "uid=%s,ou=users,dc=myorg,dc=com"
 
 ## Grafana's SMTP configuration
 ## NOTE: To enable, grafana.ini must be configured with smtp.enabled
@@ -767,8 +760,8 @@ serverFiles:
           module: [http_2xx_skip_tls]
         static_configs:
           - targets: # Add sites to monitor here
-            - https://iam-master.alm.internal.smartcolumbusos.com/ipa/ui   
-            - https://iam-replica-0.alm.internal.smartcolumbusos.com/ipa/ui   
+            - https://iam-master.alm.internal.smartcolumbusos.com/ipa/ui
+            - https://iam-replica-0.alm.internal.smartcolumbusos.com/ipa/ui
         relabel_configs:
           - source_labels: [__address__]
             target_label: __param_target
