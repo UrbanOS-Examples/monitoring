@@ -2,6 +2,8 @@
 {{- $releaseName := .Release.Name -}}
 {{- $serviceName := include "prometheus.grafana.fullname" . }}
 {{- $servicePort := .Values.grafana.service.servicePort -}}
+{{- $ingressServiceName := .Values.global.ingress.serviceName -}}
+{{- $ingressServicePort := .Values.global.ingress.servicePort -}}
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
@@ -34,8 +36,8 @@ spec:
         paths:
           - path: /{{ rest $url | join "/" }}
             backend:
-              serviceName: {{ $serviceName }}
-              servicePort: {{ $servicePort }}
+              serviceName: {{ $ingressServiceName | default $serviceName }}
+              servicePort: {{ $ingressServicePort | default $servicePort }}
   {{- end -}}
 {{- if .Values.grafana.ingress.tls }}
   tls:
