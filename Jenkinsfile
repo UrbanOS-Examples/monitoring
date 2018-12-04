@@ -49,7 +49,6 @@ def deployMonitoringTo(environment) {
         def subnets = terraformOutputs.public_subnets.value.join(/\\,/)
         def albToClusterSG = terraformOutputs.allow_all_security_group.value
         def dns_zone = environment + '.internal.smartcolumbusos.com'
-        def datalake_url = "http://datalake.${dns_zone}:6188"
 
         withCredentials([string(credentialsId: "slack-webhook-${environment}", variable: 'SLACK_URL')]) {
             sh("""#!/bin/bash
@@ -64,13 +63,13 @@ def deployMonitoringTo(environment) {
                     --set alertmanager.ingress.hosts[0]="alertmanager\\.${dns_zone}" \
                     --set server.ingress.hosts[0]="prometheus\\.${dns_zone}" \
                     --set alertmanagerFiles."alertmanager\\.yml".global.slack_api_url=$SLACK_URL \
-                    --set grafana.datasource.ambari.url="${datalake_url}" \
                     --values grafana.yaml \
                     --values run-config.yaml \
                     --values alerts.yaml \
                     --values rules.yaml \
                     --values endpoints/${environment}.yaml \
-                    --values alertManager/${environment}.yaml
+                    --values alertManager/${environment}.yaml \
+                    --set grafana.datasource.ambari.host="datalake.${dns_zone}"
             """.trim())
 
             // TODO: Find a better place to keep the hadoop dashboards now that we've decoupled them
