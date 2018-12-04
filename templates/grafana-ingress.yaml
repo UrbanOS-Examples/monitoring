@@ -32,10 +32,10 @@ spec:
     - host: {{ first $url }}
       http:
         paths:
-          - path: /{{ rest $url | join "/" }}
+          - path: /*
             backend:
-              serviceName: {{ $serviceName }}
-              servicePort: {{ $servicePort }}
+              serviceName: redirect
+              servicePort: use-annotation
   {{- end -}}
 {{- if .Values.grafana.ingress.tls }}
   tls:
