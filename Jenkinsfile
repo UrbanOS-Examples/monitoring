@@ -49,7 +49,6 @@ def deployMonitoringTo(environment) {
         def subnets = terraformOutputs.public_subnets.value.join(/\\,/)
         def albToClusterSG = terraformOutputs.allow_all_security_group.value
         def dns_zone = environment + '.internal.smartcolumbusos.com'
-        def datalake_url = "http://datalake.${dns_zone}:6188"
         def certificateARN = terraformOutputs.tls_certificate_arn.value
 
         withCredentials([string(credentialsId: "slack-webhook-${environment}", variable: 'SLACK_URL')]) {
@@ -62,7 +61,7 @@ def deployMonitoringTo(environment) {
                     --set global.ingress.annotations."alb\\.ingress\\.kubernetes\\.io\\/subnets"="${subnets}" \
                     --set global.ingress.annotations."alb\\.ingress\\.kubernetes\\.io\\/security\\-groups"="${albToClusterSG}" \
                     --set global.ingress.annotations."alb\\.ingress\\.kubernetes\\.io\\/certificate-arn"="${certificateARN}" \
-                    --set grafana.ingress.hosts[0]="grafana\\.${dns_zone}" \
+                    --set grafana.ingress.hosts[0]="grafana\\.${dns_zone}/*" \
                     --set alertmanager.ingress.hosts[0]="alertmanager\\.${dns_zone}" \
                     --set server.ingress.hosts[0]="prometheus\\.${dns_zone}" \
                     --set alertmanagerFiles."alertmanager\\.yml".global.slack_api_url=$SLACK_URL \

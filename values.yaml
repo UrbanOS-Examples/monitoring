@@ -833,7 +833,10 @@ externalDns:
 networkPolicy:
   enabled: false
 
-global: {}
+global:
+  ingress:
+    serviceName: ""
+    servicePort: ""
 
 prometheus-blackbox-exporter:
   config:
