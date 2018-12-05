@@ -127,23 +127,6 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 {{- end -}}
 
 {{/*
-Create a fully qualified externalDns name.
-We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
-*/}}
-{{- define "prometheus.externalDns.fullname" -}}
-{{- if .Values.externalDns.fullnameOverride -}}
-{{- .Values.externalDns.fullnameOverride | trunc 63 | trimSuffix "-" -}}
-{{- else -}}
-{{- $name := default .Chart.Name .Values.nameOverride -}}
-{{- if contains $name .Release.Name -}}
-{{- printf "%s-%s" .Release.Name .Values.externalDns.name | trunc 63 | trimSuffix "-" -}}
-{{- else -}}
-{{- printf "%s-%s-%s" .Release.Name $name .Values.externalDns.name | trunc 63 | trimSuffix "-" -}}
-{{- end -}}
-{{- end -}}
-{{- end -}}
-
-{{/*
 Return the appropriate apiVersion for networkpolicy.
 */}}
 {{- define "prometheus.networkPolicy.apiVersion" -}}
@@ -217,17 +200,6 @@ Create the name of the service account
     {{ default (include "prometheus.grafana.fullname" .) .Values.serviceAccounts.grafana.name }}
 {{- else -}}
     {{ default "default" .Values.serviceAccounts.grafana.name }}
-{{- end -}}
-{{- end -}}
-
-{{/*
-Create the name of the service account to use for the externalDns component
-*/}}
-{{- define "prometheus.serviceAccountName.externalDns" -}}
-{{- if .Values.serviceAccounts.externalDns.create -}}
-    {{ default (include "prometheus.externalDns.fullname" .) .Values.serviceAccounts.externalDns.name }}
-{{- else -}}
-    {{ default "default" .Values.serviceAccounts.externalDns.name }}
 {{- end -}}
 {{- end -}}
 
