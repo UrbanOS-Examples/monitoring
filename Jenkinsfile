@@ -73,9 +73,9 @@ def deployMonitoringTo(environment) {
                     --values alertManager/${environment}.yaml \
                     --set grafana.datasource.ambari.host="datalake.${dns_zone}"
             """.trim())
-
             // TODO: Find a better place to keep the hadoop dashboards now that we've decoupled them
-            sh "kubectl --namespace prometheus apply -f dashboards/scos-hdp-cluster.yaml"
+            sh "kubectl --namespace prometheus apply -f dashboards/"
+
         }
     }
 }
