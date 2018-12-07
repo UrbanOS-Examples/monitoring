@@ -58,7 +58,7 @@ kubectl --namespace prometheus get secret prometheus-grafana -o jsonpath='{.data
 To sync things back up, retrieve the password, then reset it via the `grafana-cli`.
 
 ```bash
-kubectl -n prometheus exec -it prometheus-grafana-0 -- grafana-cli admin reset-admin-password --homepath /usr/share/grafana {password}
+kubectl -n prometheus exec -it prometheus-grafana-0 -c grafana -- grafana-cli admin reset-admin-password --homepath /usr/share/grafana {password}
 ```
 
 ### Adding New Datasources
