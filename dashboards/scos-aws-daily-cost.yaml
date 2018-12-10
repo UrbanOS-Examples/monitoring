@@ -7,6 +7,36 @@ metadata:
 data:
   scos-aws-daily-cost.json: |-
     {
+      "__inputs": [
+        {
+          "name": "Prometheus",
+          "label": "Prometheus",
+          "description": "",
+          "type": "datasource",
+          "pluginId": "prometheus",
+          "pluginName": "Prometheus"
+        }
+      ],
+      "__requires": [
+        {
+          "type": "grafana",
+          "id": "grafana",
+          "name": "Grafana",
+          "version": "5.2.3"
+        },
+        {
+          "type": "panel",
+          "id": "graph",
+          "name": "Graph",
+          "version": "5.0.0"
+        },
+        {
+          "type": "datasource",
+          "id": "prometheus",
+          "name": "Prometheus",
+          "version": "5.0.0"
+        }
+      ],
       "annotations": {
         "list": [
           {
@@ -23,7 +53,7 @@ data:
       "editable": true,
       "gnetId": null,
       "graphTooltip": 0,
-      "id": 45,
+      "id": null,
       "links": [],
       "panels": [
         {
@@ -32,31 +62,30 @@ data:
           "dashLength": 10,
           "dashes": false,
           "datasource": "Prometheus",
+          "description": "Daily Cost for AWS Environment",
           "fill": 0,
           "gridPos": {
-            "h": 10,
-            "w": 14,
+            "h": 9,
+            "w": 12,
             "x": 0,
             "y": 0
           },
           "id": 2,
           "legend": {
-            "alignAsTable": false,
             "avg": true,
             "current": false,
             "max": true,
             "min": true,
-            "rightSide": false,
             "show": true,
             "total": false,
             "values": true
           },
           "lines": true,
-          "linewidth": 5,
+          "linewidth": 3,
           "links": [],
           "nullPointMode": "null",
           "percentage": false,
-          "pointradius": 2,
+          "pointradius": 5,
           "points": false,
           "renderer": "flot",
           "seriesOverrides": [],
@@ -80,7 +109,7 @@ data:
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "{{env_name}} Daily Cost",
+          "title": "!!ENV_NAME!! AWS Daily Cost",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -96,16 +125,17 @@ data:
           },
           "yaxes": [
             {
+              "decimals": null,
               "format": "currencyUSD",
-              "label": "Daily Spend",
+              "label": "Daily Cost ($)",
               "logBase": 1,
               "max": null,
               "min": null,
               "show": true
             },
             {
-              "format": "currencyUSD",
-              "label": "Daily Spend",
+              "format": "short",
+              "label": null,
               "logBase": 1,
               "max": null,
               "min": null,
@@ -114,11 +144,11 @@ data:
           ],
           "yaxis": {
             "align": false,
-            "alignLevel": 0
+            "alignLevel": null
           }
         }
       ],
-      "refresh": true,
+      "refresh": "1d",
       "schemaVersion": 16,
       "style": "dark",
       "tags": [],
@@ -131,7 +161,16 @@ data:
       },
       "timepicker": {
         "refresh_intervals": [
-          "12h"
+          "5s",
+          "10s",
+          "30s",
+          "1m",
+          "5m",
+          "15m",
+          "30m",
+          "1h",
+          "2h",
+          "1d"
         ],
         "time_options": [
           "5m",
@@ -145,8 +184,8 @@ data:
           "30d"
         ]
       },
-      "timezone": "utc",
-      "title": "AWS Daily Cost",
-      "uid": "Dj-stoPmz",
+      "timezone": "",
+      "title": "AWS Environment Daily Cost",
+      "uid": "4wNXxoEmz",
       "version": 1
     }

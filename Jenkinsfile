@@ -76,7 +76,7 @@ def deployMonitoringTo(environment) {
 
             // TODO: Find a better place to keep the hadoop dashboards now that we've decoupled them
             sh "kubectl --namespace prometheus apply -f dashboards/scos-hdp-cluster.yaml"
-            sh "sed -i \"s/{{env_name}}/${environment}/\" dashboards/scos-aws-daily-cost.yaml"
+            sh "sed -i \"s/!!ENV_NAME!!/${environment}/\" dashboards/scos-aws-daily-cost.yaml"
             sh "kubectl --namespace prometheus apply -f dashboards/scos-aws-daily-cost.yaml "
         }
     }
