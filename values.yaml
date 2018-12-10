@@ -1,3 +1,5 @@
+env_name: ""
+
 resourceLimits:
   cpu: 100m
   memory: 256Mi
