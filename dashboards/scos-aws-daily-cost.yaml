@@ -80,7 +80,7 @@ data:
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "{{ Values.env_name }} Daily Cost",
+          "title": "{{env_name}} Daily Cost",
           "tooltip": {
             "shared": true,
             "sort": 0,
