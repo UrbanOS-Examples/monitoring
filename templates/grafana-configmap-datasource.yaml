@@ -19,3 +19,10 @@ data:
       url: http://ambari:{{ .Values.grafana.datasource.ambari.port }}
       access: proxy
       isDefault: false
+    - name: CloudWatch
+      type: cloudwatch
+      isDefault: false
+      access: proxy
+      jsonData:
+        authType: credentials
+        defaultRegion: "us-west-2"
