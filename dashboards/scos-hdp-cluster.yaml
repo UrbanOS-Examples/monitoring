@@ -31,12 +31,6 @@ data:
           "id": "praj-ams-datasource",
           "name": "Ambari Metrics",
           "version": "1.0.1"
-        },
-        {
-          "type": "datasource",
-          "id": "prometheus",
-          "name": "Prometheus",
-          "version": "5.0.0"
         }
       ],
       "annotations": {
@@ -56,7 +50,7 @@ data:
       "gnetId": null,
       "graphTooltip": 0,
       "id": null,
-      "iteration": 1545316868555,
+      "iteration": 1545323244380,
       "links": [],
       "panels": [
         {
@@ -1096,7 +1090,7 @@ data:
               "aggregator": "avg",
               "alias": "Kylo DB",
               "dimensions": {
-                "DBInstanceIdentifier": "${env}-kylo"
+                "DBInstanceIdentifier": "prod-kylo"
               },
               "expr": "",
               "format": "time_series",
@@ -1181,28 +1175,7 @@ data:
       "style": "dark",
       "tags": [],
       "templating": {
-        "list": [
-          {
-            "allValue": null,
-            "current": {},
-            "datasource": "Prometheus",
-            "hide": 0,
-            "includeAll": false,
-            "label": "Environment",
-            "multi": false,
-            "name": "env",
-            "options": [],
-            "query": "label_values(kube_node_labels, label_kubernetes_io_hostname)",
-            "refresh": 1,
-            "regex": "/.*ip-.*-.*-.*[.](.*).internal/",
-            "sort": 0,
-            "tagValuesQuery": "",
-            "tags": [],
-            "tagsQuery": "",
-            "type": "query",
-            "useTags": false
-          }
-        ]
+        "list": []
       },
       "time": {
         "from": "now-6h",
@@ -1236,5 +1209,5 @@ data:
       "timezone": "browser",
       "title": "Hadoop Cluster Metrics",
       "uid": "jV8Ameaiz",
-      "version": 10
+      "version": 1
     }
