@@ -48,7 +48,7 @@ data:
       },
       "description": "Dashboard to get an overview of all nodes in a Kubernetes Cluster",
       "editable": true,
-      "gnetId": 7692,
+      "gnetId": null,
       "graphTooltip": 0,
       "id": null,
       "iteration": 1544554465254,
@@ -1130,6 +1130,6 @@ data:
       },
       "timezone": "browser",
       "title": "Kubernetes: All Nodes",
-      "uid": "k0tA7z2mz",
+      "uid": "efsdfsadag123",
       "version": 41
     }
