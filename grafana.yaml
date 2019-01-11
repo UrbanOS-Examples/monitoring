@@ -16,10 +16,6 @@ grafana:
         gnetId: 2
         revision: 2
         datasource: Prometheus
-      kube-nodes:
-        gnetId: 7692
-        revision: 1
-        datasource: Prometheus
       kube-namespace:
         gnetId: 6876
         revision: 2
