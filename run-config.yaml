@@ -52,6 +52,14 @@ server:
     annotations:
       alb.ingress.kubernetes.io/healthcheck-path: /-/healthy
 
+pushgateway:
+  service:
+    type: NodePort
+  ingress:
+    enabled: true
+    annotations:
+      alb.ingress.kubernetes.io/healthcheck-path: /-/healthy
+
 global:
   ingress:
     annotations:
