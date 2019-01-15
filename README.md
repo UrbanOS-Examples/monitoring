@@ -61,6 +61,10 @@ To sync things back up, retrieve the password, then reset it via the `grafana-cl
 kubectl -n prometheus exec -it prometheus-grafana-0 -c grafana -- grafana-cli admin reset-admin-password --homepath /usr/share/grafana {password}
 ```
 
+### Dashboards
+
+***Warning***: Do not clone public dashboards without first removing their gnet ID in the JSON and their import entry in the chart. If this is not done, the dashboard will redownload every three seconds or so and fill up the volume with backed-up old versions.
+
 ### Adding New Datasources
 
 To add a new provisioned datasource to grafana, add it to the datasources configmap.
