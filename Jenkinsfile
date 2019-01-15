@@ -62,9 +62,9 @@ def deployMonitoringTo(environment) {
                     --set global.ingress.annotations."alb\\.ingress\\.kubernetes\\.io\\/security\\-groups"="${albToClusterSG}" \
                     --set global.ingress.annotations."alb\\.ingress\\.kubernetes\\.io\\/certificate-arn"="${certificateARN}" \
                     --set grafana.ingress.hosts[0]="grafana\\.${dns_zone}/*" \
-                    --set alertmanager.ingress.hosts[0]="alertmanager\\.${dns_zone}" \
-                    --set server.ingress.hosts[0]="prometheus\\.${dns_zone}" \
-                    --set pushgateway.ingress.hosts[0]="pushgateway\\.${dns_zone}" \
+                    --set alertmanager.ingress.hosts[0]="alertmanager\\.${dns_zone}/*" \
+                    --set server.ingress.hosts[0]="prometheus\\.${dns_zone}/*" \
+                    --set pushgateway.ingress.hosts[0]="pushgateway\\.${dns_zone}/*" \
                     --set alertmanagerFiles."alertmanager\\.yml".global.slack_api_url=$SLACK_URL \
                     --values grafana.yaml \
                     --values run-config.yaml \
