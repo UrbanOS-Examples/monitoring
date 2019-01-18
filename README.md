@@ -70,6 +70,10 @@ kubectl -n prometheus exec -it prometheus-grafana-0 -c grafana -- grafana-cli ad
 To add a new provisioned datasource to grafana, add it to the datasources configmap.
 [templates/grafana-configmap-datasource.yaml](templates/grafana-configmap-datasource.yaml)
 
+### Delete Persistent Volume script
+
+This script will wipe out the persistent volumes and stateful sets in monitoring, in case such a thing is necessary (eg the drives are full). It is commented out for safety. Please ensure that your kubeconfig is pointed to your desired environment before uncommenting and running the script. Details on how to do that are found in the team-configs repo. 
+
 ### A note on the Cloudwatch Datasource
 
 Currently, the cloudwatch datasource for grafana is set to use a credentials file as authentication, but we don't give it a credential file. Instead, the permissions set on the eks worker allow grafana to talk to cloudwatch.
