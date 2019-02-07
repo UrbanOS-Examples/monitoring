@@ -101,7 +101,7 @@ data:
               "refId": "C"
             },
             {
-              "expr": "sum(rate(ceav_shift_segments_records[5m])) without (instance, PodHostname)",
+              "expr": "sum(rate(ceav_shift_segments_records[10m])) without (instance, PodHostname)",
               "format": "time_series",
               "interval": "5m",
               "intervalFactor": 1,
@@ -125,7 +125,7 @@ data:
               "refId": "D"
             },
             {
-              "expr": "sum(rate(ceav_shifts_records[5m])) without (instance, PodHostname)",
+              "expr": "sum(rate(ceav_shifts_records[10m])) without (instance, PodHostname)",
               "format": "time_series",
               "interval": "5m",
               "intervalFactor": 1,
