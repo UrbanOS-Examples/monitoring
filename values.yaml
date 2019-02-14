@@ -768,7 +768,6 @@ serverFiles:
         static_configs:
           - targets: # Add sites to monitor here
             - https://iam-master.alm.internal.smartcolumbusos.com/ipa/ui
-            - https://iam-replica-0.alm.internal.smartcolumbusos.com/ipa/ui
         relabel_configs:
           - source_labels: [__address__]
             target_label: __param_target
