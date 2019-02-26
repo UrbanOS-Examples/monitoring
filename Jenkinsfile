@@ -25,11 +25,11 @@ node('infrastructure') {
         }
 
          doStageIfPromoted('Deploy to Staging') {
-            def promotionTag = scos.releaseCandidateNumber()
+            def environment = 'staging'
 
-            deployMonitoringTo('staging')
+            deployMonitoringTo(environment)
 
-            scos.applyAndPushGitHubTag(promotionTag)
+            scos.applyAndPushGitHubTag(environment)
         }
 
         doStageIfRelease('Deploy to Production') {
