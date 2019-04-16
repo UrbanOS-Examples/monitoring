@@ -9,7 +9,7 @@ grafana:
     enabled: true
     accessModes:
       - ReadWriteOnce
-    size: 5Gi
+    size: 10Gi
 
 grafana.ini:
   auth.ldap:
