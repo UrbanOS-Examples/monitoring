@@ -1,7 +1,0 @@
-kind: Service
-apiVersion: v1
-metadata:
-  name: ambari
-spec:
-  type: ExternalName
-  externalName: {{ required "grafana.datasource.ambari.host is required" .Values.grafana.datasource.ambari.host }}
