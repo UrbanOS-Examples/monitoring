@@ -23,7 +23,7 @@ serverFiles:
               description: '{{ $labels.instance }} has {{ $value }} percent memory left.'
               summary: 'Low Memory on Instance {{ $labels.instance }}'
           - alert: LowDisk
-            expr: (node_filesystem_avail_bytes{device=~"/dev/.*"} / node_filesystem_size_bytes{device=~"/dev/.*"} * 100) < 20
+            expr: (node_filesystem_avail_bytes{device=~"/dev/.*"} / node_filesystem_size_bytes{device=~"/dev/.*"} * 100) < 15
             for: 5m
             labels:
               severity: warning
