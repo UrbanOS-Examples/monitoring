@@ -17,7 +17,7 @@ extraScrapeConfigs: |
       - targets: # Add sites to monitor here
         - https://jupyter.dev.internal.smartcolumbusos.com/hub/login
         - https://cota.dev.internal.smartcolumbusos.com
-        - https://streaming.dev.internal.smartcolumbusos.com/socket/healthcheck
+        - https://streams.dev.internal.smartcolumbusos.com/socket/healthcheck
         - https://ckan.dev.internal.smartcolumbusos.com/
         - https://www.dev.internal.smartcolumbusos.com/
         

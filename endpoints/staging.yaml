@@ -7,12 +7,10 @@ extraScrapeConfigs: |
       - targets: # Add sites to monitor here
         - https://jupyter.staging.internal.smartcolumbusos.com/hub/login
         - https://cota.staging.internal.smartcolumbusos.com
-        - https://streaming.staging.internal.smartcolumbusos.com/socket/healthcheck
+        - https://streams.staging.internal.smartcolumbusos.com/socket/healthcheck
         - https://ckan.staging.internal.smartcolumbusos.com/
         - https://www.staging.internal.smartcolumbusos.com/
-      # - https://kylo.staging.internal.smartcolumbusos.com/ not active yet 
-      # - https://nifi.staging.internal.smartcolumbusos.com/ not active yet
-      
+
     relabel_configs:
       - source_labels: [__address__]
         target_label: __param_target
