@@ -265,7 +265,7 @@ server:
       - ReadWriteOnce
     annotations: {}
     mountPath: /data
-    size: 32Gi
+    size: 100Gi
     ## Prometheus server data Persistent Volume Storage Class
     ## If defined, storageClassName: <storageClass>
     ## If set to "-", storageClassName: "", which disables dynamic provisioning
