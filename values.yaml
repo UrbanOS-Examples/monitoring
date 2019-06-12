@@ -298,7 +298,7 @@ server:
     servicePort: 80
     type: ClusterIP
   terminationGracePeriodSeconds: 300
-  retention: ""
+  retention: "31d"
 
 pushgateway:
   enabled: true
