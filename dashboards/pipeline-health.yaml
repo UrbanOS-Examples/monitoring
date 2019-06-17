@@ -23,7 +23,7 @@ data:
       "editable": true,
       "gnetId": null,
       "graphTooltip": 0,
-      "id": 586,
+      "id": 1047,
       "links": [],
       "panels": [
         {
@@ -84,7 +84,7 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(rate(kafka_topic_partition_current_offset{topic=~\"streaming.*\", topic!=\"streaming-og\"}[2m])) by (topic)",
+              "expr": "sum(rate(kafka_topic_partition_current_offset{kubernetes_namespace=\"streaming-prime\", topic!=\"__consumer_offsets\"}[2m]) > 0) by (topic)",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "{{topic}}",
@@ -245,13 +245,13 @@ data:
             "x": 0,
             "y": 8
           },
-          "id": 6,
+          "id": 11,
           "legend": {
             "avg": false,
             "current": false,
             "max": false,
             "min": false,
-            "show": true,
+            "show": false,
             "total": false,
             "values": false
           },
@@ -265,15 +265,7 @@ data:
           "renderer": "flot",
           "seriesOverrides": [
             {
-              "alias": "streaming-raw",
-              "color": "#73BF69"
-            },
-            {
-              "alias": "streaming-validated",
-              "color": "#FADE2A"
-            },
-            {
-              "alias": "streaming-transformed",
+              "alias": "Input",
               "color": "#5794F2"
             }
           ],
@@ -282,11 +274,10 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(kafka_consumergroup_lag{topic=~\"streaming.*\", consumergroup=~\".+-group\"}) by (topic)",
+              "expr": "sum(rate(com_facebook_presto_hive_HiveWriterStats_InputPageSizeInBytes_AllTime_Total[5m]))",
               "format": "time_series",
-              "hide": false,
               "intervalFactor": 1,
-              "legendFormat": "{{topic}}",
+              "legendFormat": "Input",
               "refId": "A"
             }
           ],
@@ -294,7 +285,7 @@ data:
           "timeFrom": null,
           "timeRegions": [],
           "timeShift": null,
-          "title": "Current Lag (By Topic)",
+          "title": "Rate of Data Ingest to Presto",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -310,8 +301,8 @@ data:
           },
           "yaxes": [
             {
-              "format": "short",
-              "label": "",
+              "format": "bytes",
+              "label": "Data per second (est.)",
               "logBase": 1,
               "max": null,
               "min": "0",
@@ -323,7 +314,7 @@ data:
               "logBase": 1,
               "max": null,
               "min": null,
-              "show": true
+              "show": false
             }
           ],
           "yaxis": {
@@ -388,11 +379,11 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(kafka_consumergroup_lag{topic=~\"streaming.*\", consumergroup=~\".+-group\"}) by (consumergroup, topic)",
+              "expr": "sum(kafka_consumergroup_lag{kubernetes_namespace=\"streaming-prime\", topic!=\"__consumer_offsets\"} > 0) by (consumergroup, topic)",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
-              "legendFormat": "{{consumergroup}} ({{topic}})",
+              "legendFormat": "{{consumergroup}}",
               "refId": "A"
             }
           ],
@@ -436,98 +427,9 @@ data:
             "align": false,
             "alignLevel": null
           }
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "fill": 1,
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 12,
-            "y": 16
-          },
-          "id": 11,
-          "legend": {
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "show": false,
-            "total": false,
-            "values": false
-          },
-          "lines": true,
-          "linewidth": 1,
-          "links": [],
-          "nullPointMode": "null",
-          "percentage": false,
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [
-            {
-              "alias": "Input",
-              "color": "#5794F2"
-            }
-          ],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "expr": "rate(presto_cluster_total_input_rows[5m])",
-              "format": "time_series",
-              "intervalFactor": 1,
-              "legendFormat": "Input",
-              "refId": "A"
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeRegions": [],
-          "timeShift": null,
-          "title": "Rate of Record Ingest to Presto",
-          "tooltip": {
-            "shared": true,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "short",
-              "label": "Rows per second",
-              "logBase": 1,
-              "max": null,
-              "min": "0",
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": false
-            }
-          ],
-          "yaxis": {
-            "align": false,
-            "alignLevel": null
-          }
         }
       ],
-      "refresh": false,
+      "refresh": "5m",
       "schemaVersion": 18,
       "style": "dark",
       "tags": [],
@@ -566,5 +468,5 @@ data:
       "timezone": "",
       "title": "Pipeline Health",
       "uid": "dvLZAOzZk",
-      "version": 11
+      "version": 1
     }
