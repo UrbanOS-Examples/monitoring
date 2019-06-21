@@ -219,7 +219,7 @@ server:
   enableAdminApi: false
   global:
     scrape_interval: 1m
-    scrape_timeout: 10s
+    scrape_timeout: 45s
     evaluation_interval: 1m
   extraArgs: {}
   extraHostPathMounts: []
