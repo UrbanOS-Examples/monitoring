@@ -44,6 +44,13 @@ serverFiles:
             annotations:
               description: 'Kubernetes cluster has {{ $value | humanize }} memory left. New deployments and cron jobs may fail to launch.'
               summary: 'Kubernetes cluster has less than {{ 1000000000.0 | humanize }} memory available'
+          - alert: NotReady
+            annotations:
+              description: '{{ $labels.node }} is not ready'
+              summary: 'Status not Ready on Node {{ $labels.node }}'
+            expr: kube_node_status_condition{condition="Ready", status="true"} != 1
+            labels:
+              severity: error
       - name: StreamingDataAggregator
         rules:
           - alert: CeavVehicleLocationsJobFailed
