@@ -24,6 +24,7 @@ alertmanagerFiles:
            text: "{{ range .Alerts }}{{ .Annotations.description }}\n{{ end }}"
     route:
       receiver: default-receiver
+      group_interval: 2m
       # All alerts that do not match the following child routes
       # will remain at the root node and be dispatched to 'default-receiver'.
       routes:
