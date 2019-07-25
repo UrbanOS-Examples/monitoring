@@ -8,7 +8,6 @@ extraScrapeConfigs: |
         - https://jupyter.staging.internal.smartcolumbusos.com/hub/login
         - https://cota.staging.internal.smartcolumbusos.com
         - https://streams.staging.internal.smartcolumbusos.com/socket/healthcheck
-        - https://ckan.staging.internal.smartcolumbusos.com/
         - https://www.staging.internal.smartcolumbusos.com/
 
     relabel_configs:

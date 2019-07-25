@@ -18,7 +18,6 @@ extraScrapeConfigs: |
         - https://jupyter.dev.internal.smartcolumbusos.com/hub/login
         - https://cota.dev.internal.smartcolumbusos.com
         - https://streams.dev.internal.smartcolumbusos.com/socket/healthcheck
-        - https://ckan.dev.internal.smartcolumbusos.com/
         - https://www.dev.internal.smartcolumbusos.com/
         
     relabel_configs:
