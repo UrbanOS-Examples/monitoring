@@ -8,9 +8,9 @@ extraScrapeConfigs: |
         - https://jupyter.smartcolumbusos.com/hub/login
         - https://cota.smartcolumbusos.com
         - https://streams.smartcolumbusos.com/socket/healthcheck
-        - https://ckan.smartcolumbusos.com/
         - https://www.smartcolumbusos.com/
         - https://survey.smartcolumbusos.com/
+        - https://discovery.smartcolumbusos.com
     relabel_configs:
       - source_labels: [__address__]
         target_label: __param_target
