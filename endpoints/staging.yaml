@@ -9,6 +9,7 @@ extraScrapeConfigs: |
         - https://cota.staging.internal.smartcolumbusos.com
         - https://streams.staging.internal.smartcolumbusos.com/socket/healthcheck
         - https://www.staging.internal.smartcolumbusos.com/
+        - https://discovery.staging.internal.smartcolumbusos.com
 
     relabel_configs:
       - source_labels: [__address__]
