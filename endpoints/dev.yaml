@@ -1,6 +1,6 @@
 # I would like the below config to look like this, but you can't template values.
 # Not sure how to accomplish this goal, particularly since `extraScrapeConfigs` expects a string.
-# 
+#
 # blackbox:
 #   targets: #Add sites to monitor here
 #     - https://jupyter.dev.internal.smartcolumbusos.com/hub/login
@@ -18,9 +18,9 @@ extraScrapeConfigs: |
         - https://jupyter.dev.internal.smartcolumbusos.com/hub/login
         - https://cota.dev.internal.smartcolumbusos.com
         - https://streams.dev.internal.smartcolumbusos.com/socket/healthcheck
-        - https://www.dev.internal.smartcolumbusos.com/
+        - https://www.dev-smartos.com
         - https://discovery.dev.internal.smartcolumbusos.com
-        
+
     relabel_configs:
       - source_labels: [__address__]
         target_label: __param_target
@@ -29,4 +29,4 @@ extraScrapeConfigs: |
       - target_label: __address__
         # ${namespace}-prometheus-blackbox-exporter:9115
         replacement: prometheus-prometheus-blackbox-exporter:9115
-  
+

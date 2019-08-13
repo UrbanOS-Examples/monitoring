@@ -51,3 +51,11 @@ serverFiles:
             expr: kube_node_status_condition{condition="Ready", status="true"} != 1
             labels:
               severity: error
+      - name: tracer_alerts
+        rules:
+          - alert: MessageThroughput
+            expr: sum(rate(kafka_topic_partition_current_offset{topic=~".*-00000000-7e77-4b1c-92a4-36e09db56173|streaming-persisted|scos__sample_streaming_dataset"}[5m])) by (topic) == 0
+            labels:
+              severity: error
+            annotations:
+              summary: '{{ $labels.topic }} has no input for at least 5 minutes'
