@@ -59,3 +59,26 @@ serverFiles:
               severity: error
             annotations:
               summary: '{{ $labels.topic }} has no input for at least 5 minutes'
+      - name: joomla_backup
+    rules:
+      - alert: JoomlaBackupFailed
+        expr: sum(rate(kube_job_status_failed{job_name=~"joomler-test.*"}[24h])) > 0
+        labels:
+          severity: error
+        annotations:
+          summary: 'Joomla Backup Failed'
+          description: '{{ $labels.job_name }} has failed'
+      - alert: JoomlaBackupNotCompleted
+        expr: kube_cronjob_status_active{cronjob="joomler-test"} > 0 and time() - kube_cronjob_status_last_schedule_time{cronjob="joomler-test"} > 1800
+        labels:
+          severity: error
+        annotations:
+          summary: 'Joomla Backup Hung'
+          description: '{{ $labels.cronjob }} has been running for over 2 minutes'
+      - alert: JoomlaBackupOverdue
+        expr: time() - max(kube_job_status_completion_time{job_name=~"joomler-test.*"}) > 86400
+        labels:
+          severity: error
+        annotations:
+          summary: 'Joomla Backup Overdue'
+          description: 'Backup has not run in over 24 hours - last backup: {{ $labels.job_name }}'
