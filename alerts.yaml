@@ -54,7 +54,7 @@ serverFiles:
       - name: tracer_alerts
         rules:
           - alert: MessageThroughput
-            expr: sum(rate(kafka_topic_partition_current_offset{topic=~".*-00000000-7e77-4b1c-92a4-36e09db56173|streaming-persisted|scos__sample_streaming_dataset"}[5m])) by (topic) == 0
+            expr: sum(rate(kafka_topic_partition_current_offset{topic=~"raw-00000000.*|transformed-00000000.*|streaming-persisted|scos__sample_streaming_dataset"}[5m])) by (topic) == 0
             labels:
               severity: error
             annotations:
