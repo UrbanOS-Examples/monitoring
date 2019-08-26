@@ -59,3 +59,22 @@ serverFiles:
               severity: error
             annotations:
               summary: '{{ $labels.topic }} has no input for at least 5 minutes'
+      - name: joomla_backup
+        rules:
+        - alert: JoomlaBackupNotCompleted
+          expr: >
+            time() - max(kube_job_status_start_time{job_name=~"joomla-backup.*"}) > 1800 and
+            max(kube_job_status_completion_time{job_name=~"joomla-backup.*"}) < max(kube_job_status_start_time{job_name=~"joomla-backup.*"})
+          labels:
+            severity: error
+          annotations:
+            summary: 'Joomla Backup Not Completed'
+            description: 'Most recent Joomla backup did not complete'
+        - alert: JoomlaBackupOverdue
+          expr: >
+            time() - max(kube_job_status_completion_time{job_name=~"joomla-backup.*"}) > 86400
+          labels:
+            severity: error
+          annotations:
+            summary: 'Joomla Backup Overdue'
+            description: 'Joomla backup has not run in over 24 hours'
