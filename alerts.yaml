@@ -72,7 +72,7 @@ serverFiles:
             description: 'Most recent Joomla backup did not complete'
         - alert: JoomlaBackupOverdue
           expr: >
-            time() - max(kube_job_status_completion_time{job_name=~"joomla-backup.*"}) > 86400
+            time() - max(kube_job_status_completion_time{job_name=~"joomla-backup.*"}) > 172800
           labels:
             severity: error
           annotations:
