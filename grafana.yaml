@@ -7,9 +7,6 @@ grafana:
   initContainer:
     datasources:
       enabled: true
-  datasource:
-    ambari:
-      host: "datalake.dev.internal.smartcolumbusos.com"
   dashboards:
     default:
       kube-official-dash:
@@ -28,18 +25,6 @@ grafana:
         gnetId: 6879
         revision: 1
         datasource: Prometheus
-      ams-hbase-home:
-        gnetId: 8847
-        revision: 2
-        datasource: Ambari
-      ams-hbase-misc:
-        gnetId: 8853
-        revision: 3
-        datasource: Ambari
-      ams-hbase-region-servers:
-        gnetId: 8856
-        revision: 4
-        datasource: Ambari
   dashboardProviders:
     dashboardproviders.yaml:
       apiVersion: 1
