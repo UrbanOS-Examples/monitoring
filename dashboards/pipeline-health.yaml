@@ -606,9 +606,9 @@ data:
             "allValue": "-",
             "current": {
               "tags": [],
-              "text": "00000000-7e77-4b1c-92a4-36e09db56173",
+              "text": "All",
               "value": [
-                "00000000-7e77-4b1c-92a4-36e09db56173"
+                "$__all"
               ]
             },
             "datasource": "Prometheus",
