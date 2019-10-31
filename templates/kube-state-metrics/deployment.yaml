@@ -55,7 +55,12 @@ spec:
             - name: metrics
               containerPort: 8080
           resources:
-{{ include "prometheus.resources" . | trim | indent 12 }}
+            limits:
+              cpu: 100m
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 512Mi
     {{- if .Values.kubeStateMetrics.nodeSelector }}
       nodeSelector:
 {{ toYaml .Values.kubeStateMetrics.nodeSelector | trim | indent 8 }}
