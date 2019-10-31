@@ -153,13 +153,6 @@ kubeStateMetrics:
     loadBalancerSourceRanges: []
     servicePort: 80
     type: ClusterIP
-  resources:
-    limits:
-      cpu: 100m
-      memory: 512Mi
-    requests:
-      cpu: 100m
-      memory: 512Mi
 
 nodeExporter:
   enabled: true
