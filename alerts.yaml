@@ -78,3 +78,12 @@ serverFiles:
           annotations:
             summary: 'Joomla Backup Overdue'
             description: 'Joomla backup has not run in over 24 hours'
+      - name: kube_bench_failed
+        rules:
+        - alert: KubeBenchFailed
+          expr: kube_job_status_failed{job_name=~"kube-bench.*"}
+          labels:
+            severity: warning
+          annotations:
+            summary: 'Kube Bench failed some checks'
+            description: 'The most recent Kube Bench run detected some failures'
