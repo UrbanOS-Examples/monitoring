@@ -81,7 +81,7 @@ serverFiles:
       - name: kube_bench_failed
         rules:
         - alert: KubeBenchFailed
-          expr: kube_job_status_failed{job_name=~"kube-bench.*"}
+          expr: kube_job_status_failed{job_name=~"kube-bench.*"}[25h]
           labels:
             severity: warning
           annotations:
