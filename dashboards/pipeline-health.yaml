@@ -41,7 +41,7 @@ data:
       "gnetId": null,
       "graphTooltip": 0,
       "id": 172,
-      "iteration": 1575647301966,
+      "iteration": 1575649974246,
       "links": [],
       "panels": [
         {
@@ -467,12 +467,12 @@ data:
           },
           "id": 17,
           "legend": {
-            "alignAsTable": true,
+            "alignAsTable": false,
             "avg": false,
             "current": true,
             "max": false,
             "min": false,
-            "rightSide": true,
+            "rightSide": false,
             "show": true,
             "total": false,
             "values": true
@@ -519,7 +519,7 @@ data:
           "timeFrom": null,
           "timeRegions": [],
           "timeShift": null,
-          "title": "Panel Title",
+          "title": "Active Microservice Instances",
           "tooltip": {
             "shared": true,
             "sort": 2,
@@ -715,7 +715,6 @@ data:
           {
             "allValue": "-",
             "current": {
-              "tags": [],
               "text": "All",
               "value": [
                 "$__all"
