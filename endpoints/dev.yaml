@@ -3,7 +3,6 @@
 #
 # blackbox:
 #   targets: #Add sites to monitor here
-#     - https://jupyter.dev.internal.smartcolumbusos.com/hub/login
 #     - https://cota.dev.internal.smartcolumbusos.com
 #     - https://streaming.dev.internal.smartcolumbusos.com/socket/healthcheck
 #   hostname: prometheus-prometheus-blackbox-exporter:9115
@@ -15,7 +14,6 @@ extraScrapeConfigs: |
       module: [http_2xx] # Look for a HTTP 200 response.
     static_configs:
       - targets: # Add sites to monitor here
-        - https://jupyter.dev.internal.smartcolumbusos.com/hub/login
         - https://cota.dev.internal.smartcolumbusos.com
         - https://streams.dev.internal.smartcolumbusos.com/socket/healthcheck
         - https://www.dev-smartos.com
