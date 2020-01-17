@@ -5,7 +5,6 @@ extraScrapeConfigs: |
       module: [http_2xx] # Look for a HTTP 200 response.
     static_configs:
       - targets: # Add sites to monitor here
-        - https://jupyter.staging.internal.smartcolumbusos.com/hub/login
         - https://cota.staging.internal.smartcolumbusos.com
         - https://streams.staging.internal.smartcolumbusos.com/socket/healthcheck
         - https://www.staging-smartos.com
