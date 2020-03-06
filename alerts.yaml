@@ -59,6 +59,15 @@ serverFiles:
               severity: error
             annotations:
               summary: '{{ $labels.topic }} has no input for at least 5 minutes'
+      - name: doim_alerts
+        rules:
+          - alert: DoimIngestion
+            expr: sum(rate(kafka_topic_partition_current_offset{topic=~"transformed-cf3d0471-4239-452b-a626-566c3ce22504|transformed-3fc8c3d7-7754-4d5c-b7d9-fef081d7f2ff|transformed-b37f597b-8527-41da-a3aa-71d72f554b4c"}[25h])) by (topic) == 0
+            labels:
+              severity: error
+            annotations:
+              description: '{{ $labels.topic }} has not had any input in the last 25 hours'
+              summary: 'DoIM Data Has Not Loaded'
       - name: joomla_backup
         rules:
         - alert: JoomlaBackupNotCompleted
