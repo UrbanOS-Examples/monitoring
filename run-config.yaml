@@ -103,10 +103,10 @@ prometheus-blackbox-exporter:
     resources:
       limits:
         cpu: 100m
-        memory: 10Mi
+        memory: 20Mi
       requests:
         cpu: 10m
-        memory: 10Mi
+        memory: 20Mi
 
 # helm install --name=prometheus --namespace=prometheus \
 #   --set global.ingress.annotations."alb\.ingress\.kubernetes\.io\/subnets"="${SUBNETS//,/\\,}" \
