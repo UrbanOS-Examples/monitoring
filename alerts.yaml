@@ -104,4 +104,4 @@ serverFiles:
             severity: warning
           annotations:
             summary: 'Consumer Group lag is greater than 5000'
-            description: 'Consumer Group lag topic {{ $labels.topic }} has become {{ $value }}.'
+            description: 'Consumer Group lag topic {{ $labels.topic }} has become {{ humanize $value }}.'
