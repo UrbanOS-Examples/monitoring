@@ -159,7 +159,7 @@ nodeExporter:
   name: node-exporter
   image:
     repository: prom/node-exporter
-    tag: v0.17.0
+    tag: v1.0.0
     pullPolicy: IfNotPresent
   priorityClassName: ""
   updateStrategy:
