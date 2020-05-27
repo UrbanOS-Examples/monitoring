@@ -305,7 +305,7 @@ pushgateway:
   name: pushgateway
   image:
     repository: prom/pushgateway
-    tag: v1.2.0
+    tag: v0.6.0
     pullPolicy: IfNotPresent
   priorityClassName: ""
   extraArgs: {}
