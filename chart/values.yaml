@@ -336,7 +336,7 @@ grafana:
   podManagementPolicy: OrderedReady
   image:
     repository: grafana/grafana
-    tag: 7.0.1
+    tag: 6.1.3
     pullPolicy: IfNotPresent
     ## Optionally specify an array of imagePullSecrets.
     ## Secrets must be manually created in the namespace.
