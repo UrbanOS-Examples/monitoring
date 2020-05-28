@@ -131,7 +131,7 @@ kubeStateMetrics:
   enabled: true
   name: kube-state-metrics
   image:
-    repository: k8s.gcr.io/kube-state-metrics
+    repository: quay.io/coreos/kube-state-metrics
     tag: v1.8.0
     pullPolicy: IfNotPresent
   priorityClassName: ""
