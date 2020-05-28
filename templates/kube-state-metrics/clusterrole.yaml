@@ -45,6 +45,7 @@ rules:
       - daemonsets
       - deployments
       - statefulsets
+      - replicasets
     verbs:
       - get
       - list
@@ -78,4 +79,12 @@ rules:
     verbs:
       - list
       - watch
+  - apiGroups:
+      - storage.k8s.io
+    resources:
+      - storageclasses
+    verbs:
+     - watch
+     - list
+     - get
 {{- end }}
