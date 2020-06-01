@@ -105,3 +105,12 @@ serverFiles:
           annotations:
             summary: 'Consumer Group lag is greater than 10000'
             description: 'Consumer Group lag topic {{ $labels.topic }} has become {{ humanize $value }}.'
+      - name: model_variance
+        rules:
+        - alert: ModelVarianceLarger
+          expr: parking_model_variance{job='variance'} > 0.05
+          labels:
+            severity: warning
+          annotations:
+            summary: 'Parking model variance exceeds 0.05'
+            description: 'Parking prediction variance for zone {{ $labels.zone }} is {{ $value }}.'
