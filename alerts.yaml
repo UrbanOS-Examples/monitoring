@@ -108,9 +108,9 @@ serverFiles:
       - name: model_variance
         rules:
         - alert: ModelVarianceLarger
-          expr: parking_model_variance{job='variance'} > 0.05
+          expr: parking_model_variance{job='variance'} > 0.10
           labels:
             severity: warning
           annotations:
-            summary: 'Parking model variance exceeds 0.05'
+            summary: 'Parking model variance exceeds 0.10'
             description: 'Parking prediction variance for zone {{ $labels.zone }} is {{ $value }}.'
