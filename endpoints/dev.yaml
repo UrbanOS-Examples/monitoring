@@ -18,6 +18,7 @@ extraScrapeConfigs: |
         - https://streams.dev.internal.smartcolumbusos.com/socket/healthcheck
         - https://www.dev-smartos.com
         - https://discovery.dev.internal.smartcolumbusos.com
+        - https://data.dev.internal.smartcolumbusos.com/
 
     relabel_configs:
       - source_labels: [__address__]
