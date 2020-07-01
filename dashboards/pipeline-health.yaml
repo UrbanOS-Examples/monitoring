@@ -40,8 +40,7 @@ data:
       "editable": true,
       "gnetId": null,
       "graphTooltip": 0,
-      "id": 172,
-      "iteration": 1575649974246,
+      "iteration": 1593613479426,
       "links": [],
       "panels": [
         {
@@ -49,13 +48,23 @@ data:
           "bars": false,
           "dashLength": 10,
           "dashes": false,
+          "datasource": null,
+          "description": "Rate of data written to Kafka topics by topic name (including dataset id). Data is presented in a log scale to show low volume datasets.",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
           "fill": 1,
+          "fillGradient": 0,
           "gridPos": {
             "h": 8,
             "w": 12,
             "x": 0,
             "y": 0
           },
+          "hiddenSeries": false,
           "id": 2,
           "interval": "",
           "legend": {
@@ -71,28 +80,36 @@ data:
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
           "percentage": false,
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
           "seriesOverrides": [
             {
+              "$$hashKey": "object:673",
               "alias": "streaming-dead-letters",
               "color": "#F2495C"
             },
             {
+              "$$hashKey": "object:674",
               "alias": "/(raw|reaper).*/",
               "color": "#73BF69"
             },
             {
+              "$$hashKey": "object:675",
               "alias": "/validated.*/",
               "color": "#FADE2A"
             },
             {
+              "$$hashKey": "object:676",
               "alias": "/(transformed|valkyrie).*/",
               "color": "#5794F2"
             },
             {
+              "$$hashKey": "object:677",
               "alias": "/(streaming-persisted|forklift)/",
               "color": "#FFA6B0"
             }
@@ -129,14 +146,16 @@ data:
           },
           "yaxes": [
             {
+              "$$hashKey": "object:466",
               "format": "short",
               "label": null,
-              "logBase": 1,
+              "logBase": 2,
               "max": null,
               "min": "0",
               "show": true
             },
             {
+              "$$hashKey": "object:467",
               "format": "short",
               "label": null,
               "logBase": 1,
@@ -155,13 +174,243 @@ data:
           "bars": false,
           "dashLength": 10,
           "dashes": false,
+          "datasource": null,
+          "description": "Rate of events handled by App and Dataset. Data is presented in a Log scale to show lower frequency events.",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
           "fill": 1,
+          "fillGradient": 0,
           "gridPos": {
             "h": 8,
             "w": 12,
             "x": 12,
             "y": 0
           },
+          "hiddenSeries": false,
+          "id": 15,
+          "legend": {
+            "alignAsTable": false,
+            "avg": false,
+            "current": false,
+            "hideZero": false,
+            "max": false,
+            "min": false,
+            "rightSide": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null as zero",
+          "options": {
+            "dataLinks": []
+          },
+          "percentage": false,
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "sum(rate(events_handled_count{event_type!=\"data:extract:end\", dataset_id=~\".*[[dataset_id]].*\"}[2m]) > 0) by (app, dataset_id, event_type)",
+              "interval": "",
+              "legendFormat": "{{dataset_id}} - {{app}} {{event_type}}",
+              "refId": "A"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Rate of Events Handled",
+          "tooltip": {
+            "shared": true,
+            "sort": 2,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "$$hashKey": "object:142",
+              "format": "short",
+              "label": "",
+              "logBase": 10,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "$$hashKey": "object:143",
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
+          "fill": 1,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 8
+          },
+          "hiddenSeries": false,
+          "id": 9,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
+          "percentage": false,
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "/valkyrie.*/",
+              "color": "#73BF69"
+            },
+            {
+              "alias": "/voltron.*/",
+              "color": "#FADE2A"
+            },
+            {
+              "alias": "/forklift.*/",
+              "color": "#5794F2"
+            },
+            {
+              "alias": "/flair.*/",
+              "color": "#FF9830"
+            },
+            {
+              "alias": "/streisand.*/",
+              "color": "#C0D8FF"
+            }
+          ],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "sum(kafka_consumergroup_lag{kubernetes_namespace=\"streaming-prime\", topic=~\".*([[dataset_id]]).*\", consumergroup!~\"console.*\"} > 0) by (consumergroup, topic, dataset)",
+              "format": "time_series",
+              "hide": false,
+              "interval": "",
+              "intervalFactor": 1,
+              "legendFormat": "{{consumergroup}}",
+              "refId": "A"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Current Lag (By Consumer Group)",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "$$hashKey": "object:191",
+              "format": "short",
+              "label": "",
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
+            },
+            {
+              "$$hashKey": "object:192",
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
+          "fill": 1,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 8
+          },
+          "hiddenSeries": false,
           "id": 8,
           "legend": {
             "avg": false,
@@ -176,6 +425,9 @@ data:
           "linewidth": 2,
           "links": [],
           "nullPointMode": "null as zero",
+          "options": {
+            "dataLinks": []
+          },
           "percentage": false,
           "pointradius": 2,
           "points": false,
@@ -256,319 +508,22 @@ data:
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "fill": 1,
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 0,
-            "y": 8
-          },
-          "id": 9,
-          "legend": {
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "show": true,
-            "total": false,
-            "values": false
-          },
-          "lines": true,
-          "linewidth": 1,
-          "links": [],
-          "nullPointMode": "null",
-          "percentage": false,
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [
-            {
-              "alias": "/valkyrie.*/",
-              "color": "#73BF69"
-            },
-            {
-              "alias": "/voltron.*/",
-              "color": "#FADE2A"
-            },
-            {
-              "alias": "/forklift.*/",
-              "color": "#5794F2"
-            },
-            {
-              "alias": "/flair.*/",
-              "color": "#FF9830"
-            },
-            {
-              "alias": "/streisand.*/",
-              "color": "#C0D8FF"
-            }
-          ],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "expr": "sum(kafka_consumergroup_lag{kubernetes_namespace=\"streaming-prime\", topic=~\".*([[dataset_id]]).*\", consumergroup!~\"console.*\"} > 0) by (consumergroup, topic, dataset)",
-              "format": "time_series",
-              "hide": false,
-              "intervalFactor": 1,
-              "legendFormat": "{{consumergroup}}",
-              "refId": "A"
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeRegions": [],
-          "timeShift": null,
-          "title": "Current Lag (By Consumer Group)",
-          "tooltip": {
-            "shared": true,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "short",
-              "label": "",
-              "logBase": 1,
-              "max": null,
-              "min": "0",
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false,
-            "alignLevel": null
-          }
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "fill": 1,
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 12,
-            "y": 8
-          },
-          "id": 11,
-          "legend": {
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "show": false,
-            "total": false,
-            "values": false
-          },
-          "lines": true,
-          "linewidth": 1,
-          "links": [],
-          "nullPointMode": "null",
-          "percentage": false,
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [
-            {
-              "alias": "Input",
-              "color": "#5794F2"
-            }
-          ],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "expr": "sum(rate(com_facebook_presto_hive_HiveWriterStats_InputPageSizeInBytes_AllTime_Total[5m]))",
-              "format": "time_series",
-              "intervalFactor": 1,
-              "legendFormat": "Input",
-              "refId": "A"
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeRegions": [],
-          "timeShift": null,
-          "title": "Rate of Data Ingest to Presto",
-          "tooltip": {
-            "shared": true,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "bytes",
-              "label": "Data per second (est.)",
-              "logBase": 1,
-              "max": null,
-              "min": "0",
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": false
-            }
-          ],
-          "yaxis": {
-            "align": false,
-            "alignLevel": null
-          }
-        },
-        {
-          "aliasColors": {
-            "andi": "rgb(255, 255, 255)",
-            "{container=\"andi\"}": "rgb(255, 255, 255)",
-            "{container=\"forklift\"}": "super-light-red",
-            "{container=\"reaper\"}": "green",
-            "{container=\"valkyrie\"}": "blue"
-          },
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "decimals": 0,
-          "fill": 10,
-          "gridPos": {
-            "h": 9,
-            "w": 12,
-            "x": 0,
-            "y": 16
-          },
-          "id": 17,
-          "legend": {
-            "alignAsTable": false,
-            "avg": false,
-            "current": true,
-            "max": false,
-            "min": false,
-            "rightSide": false,
-            "show": true,
-            "total": false,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 0,
-          "links": [],
-          "nullPointMode": "null",
-          "percentage": false,
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [
-            {
-              "alias": "andi",
-              "color": "rgb(255, 255, 255)"
-            },
-            {
-              "alias": "forklift",
-              "color": "#FFA6B0"
-            },
-            {
-              "alias": "reaper",
-              "color": "#73BF69"
-            },
-            {
-              "alias": "valkyrie",
-              "color": "#5794F2"
-            }
-          ],
-          "spaceLength": 10,
-          "stack": true,
-          "steppedLine": true,
-          "targets": [
-            {
-              "expr": "sum(kube_pod_container_status_running{container=~\"(andi|forklift|valkyrie|reaper)\"}) by (container)",
-              "format": "time_series",
-              "intervalFactor": 1,
-              "legendFormat": "{{container}}",
-              "refId": "A"
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeRegions": [],
-          "timeShift": null,
-          "title": "Active Microservice Instances",
-          "tooltip": {
-            "shared": true,
-            "sort": 2,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "short",
-              "label": "Number of Active Instances",
-              "logBase": 1,
-              "max": null,
-              "min": "0",
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false,
-            "alignLevel": null
-          }
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
           "datasource": "Prometheus",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
           "fill": 10,
+          "fillGradient": 0,
           "gridPos": {
             "h": 9,
             "w": 12,
-            "x": 12,
+            "x": 0,
             "y": 16
           },
+          "hiddenSeries": false,
           "id": 13,
           "legend": {
             "avg": false,
@@ -585,6 +540,9 @@ data:
           "linewidth": 0,
           "links": [],
           "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
           "percentage": false,
           "pointradius": 5,
           "points": false,
@@ -642,72 +600,10 @@ data:
             "align": false,
             "alignLevel": null
           }
-        },
-        {
-          "description": "Percent of topics in the pipeline that have data flowing through them.",
-          "gridPos": {
-            "h": 9,
-            "w": 12,
-            "x": 12,
-            "y": 25
-          },
-          "id": 15,
-          "links": [],
-          "options": {
-            "maxValue": "1",
-            "minValue": 0,
-            "orientation": "auto",
-            "showThresholdLabels": false,
-            "showThresholdMarkers": true,
-            "thresholds": [
-              {
-                "color": "red",
-                "index": 0,
-                "value": null
-              },
-              {
-                "color": "dark-orange",
-                "index": 1,
-                "value": 0.4
-              },
-              {
-                "color": "#EAB839",
-                "index": 2,
-                "value": 0.7
-              },
-              {
-                "color": "green",
-                "index": 3,
-                "value": 0.9
-              }
-            ],
-            "valueMappings": [],
-            "valueOptions": {
-              "decimals": 2,
-              "prefix": "",
-              "stat": "last",
-              "suffix": "",
-              "unit": "percentunit"
-            }
-          },
-          "pluginVersion": "6.1.3",
-          "targets": [
-            {
-              "expr": "count(sum(rate(kafka_topic_partition_current_offset{kubernetes_namespace=\"streaming-prime\"}[2m]) > 0) by (topic)) / count(sum(kafka_topic_partition_current_offset{kubernetes_namespace=\"streaming-prime\"}) by (topic))",
-              "format": "time_series",
-              "instant": true,
-              "intervalFactor": 2,
-              "refId": "A"
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Topic Usage",
-          "type": "gauge"
         }
       ],
       "refresh": "5m",
-      "schemaVersion": 18,
+      "schemaVersion": 25,
       "style": "dark",
       "tags": [],
       "templating": {
@@ -715,6 +611,8 @@ data:
           {
             "allValue": "-",
             "current": {
+              "selected": true,
+              "tags": [],
               "text": "All",
               "value": [
                 "$__all"
@@ -751,12 +649,12 @@ data:
         ]
       },
       "time": {
-        "from": "now-30m",
+        "from": "now-30m-1m",
         "to": "now"
       },
       "timepicker": {
+        "nowDelay": "1m",
         "refresh_intervals": [
-          "5s",
           "10s",
           "30s",
           "1m",
