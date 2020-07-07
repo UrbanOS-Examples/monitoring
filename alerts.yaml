@@ -68,6 +68,24 @@ serverFiles:
             annotations:
               description: '{{ $labels.topic }} has not had any input in the last 25 hours'
               summary: 'DoIM Data Has Not Loaded'
+      - name: parking_prediction_alerts
+        rules:
+          - alert: ParkingPredictionIngest
+            expr: sum(rate(kafka_topic_partition_current_offset{topic=~"transformed-59012505-a69b-4b5e-b3fa-4a49cf42e21d|transformed-3d5cf546-c04c-403f-9938-5a1db0b3772a|transformed-a360cbdc-efdf-4ab0-8a52-c5532936b9c0|transformed-78213fa0-94a3-45ed-8ee2-f44825e13d20"}[25h])) by (topic) == 0
+            labels:
+              severity: error
+            annotations:
+              description: '{{ $labels.topic }} has not had any input in the last 25 hours'
+              summary: 'The latest parking prediction data has not loaded'
+      - name: critical_dataset_alerts
+        rules:
+          - alert: CriticalDatasetIngest
+            expr: sum(rate(kafka_topic_partition_current_offset{topic=~"transformed-90d51c3b-8c01-4ba4-ac24-a3206458f851|transformed-9cf13962-5f81-4dbb-bf98-3b9404050744|transformed-7d22b8b4-2365-4afa-9b7c-e27b39c3e710"}[25h])) by (topic) == 0
+            labels:
+              severity: error
+            annotations:
+              description: '{{ $labels.topic }} has not had any input in the last 25 hours'
+              summary: 'One or more critical datasets have not ingested'
       - name: joomla_backup
         rules:
         - alert: JoomlaBackupNotCompleted
