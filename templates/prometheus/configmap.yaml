@@ -22,11 +22,11 @@ data:
       rules:
       {{- range $.Values.datasetAlerts }}
       - alert: {{ .title | title | nospace }}
-        expr: "sum(rate(kafka_topic_partition_current_offset{topic="transformed-{{ .id }}"}[{{ .interval }}])) by (topic) == 0"
+        expr: 'sum(rate(kafka_topic_partition_current_offset{topic="transformed-{{ .id }}"}[{{ .interval }}])) by (topic) == 0'
         labels:
           severity: error
         annotations:
-          description: '`{{ .title }}` has not had any input in the last {{ .interval }}. ID: {{ .id }}'
+          description: '{{ .title }} has not had any input in the last {{ .interval }}. ID: {{ .id }}'
           summary: 'The latest {{ .title }} data has not loaded'
       {{- end }}
 {{- if eq $key "prometheus.yml" -}}
