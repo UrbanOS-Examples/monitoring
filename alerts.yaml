@@ -11,8 +11,8 @@ datasetAlerts:
   - id: 59012505-a69b-4b5e-b3fa-4a49cf42e21d
     title: "City of Columbus Parking Meter Transactions"
     interval: 25h
-  - id: 3d5cf546-c04c-403f-9938-5a1db0b3772a
-    title: "Transactions for City of Columbus"
+  - id: 3ef09df8-4dba-4175-8556-08dc6cca5dc5
+    title: "Park Columbus Parking Meter Transaction Data"
     interval: 25h
   - id: a360cbdc-efdf-4ab0-8a52-c5532936b9c0
     title: "Park Columbus Session Data Event Parking Management"
