@@ -18,6 +18,7 @@ data:
 {{ $root.Values.server.global | toYaml | trimSuffix "\n" | indent 6 }}
 {{- end }}
 {{ toYaml $value | default "{}" | indent 4 -}}
+{{- if eq $key "alerts" -}}
     - name: dataset_alerts
       rules:
       {{- range $.Values.datasetAlerts }}
@@ -29,6 +30,7 @@ data:
           description: '{{ .title }} has not had any input in the last {{ .interval }}. ID: {{ .id }}'
           summary: 'The latest {{ .title }} data has not loaded'
       {{- end }}
+{{- end }}
 {{- if eq $key "prometheus.yml" -}}
 {{- if $root.Values.extraScrapeConfigs }}
 {{ tpl $root.Values.extraScrapeConfigs $root | indent 4 }}
