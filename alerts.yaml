@@ -1,3 +1,41 @@
+datasetAlerts:
+  - id: cf3d0471-4239-452b-a626-566c3ce22504
+    title: "Columbus Infrastructure Management Work Orders"
+    interval: 25h
+  - id: 3fc8c3d7-7754-4d5c-b7d9-fef081d7f2ff
+    title: "Columbus Infrastructure Management Work Order Task Table"
+    interval: 25h
+  - id: b37f597b-8527-41da-a3aa-71d72f554b4c
+    title: "Columbus Infrastructure Management Work Order Resources"
+    interval: 25h
+  - id: 59012505-a69b-4b5e-b3fa-4a49cf42e21d
+    title: "City of Columbus Parking Meter Transactions"
+    interval: 25h
+  - id: 3d5cf546-c04c-403f-9938-5a1db0b3772a
+    title: "Transactions for City of Columbus"
+    interval: 25h
+  - id: a360cbdc-efdf-4ab0-8a52-c5532936b9c0
+    title: "Park Columbus Session Data Event Parking Management"
+    interval: 25h
+  - id: 78213fa0-94a3-45ed-8ee2-f44825e13d20
+    title: "Short North Parking Occupancy"
+    interval: 25h
+  - id: 90d51c3b-8c01-4ba4-ac24-a3206458f851
+    title: "COTA Real Time Bus Locations"
+    interval: 12h
+  - id: 9cf13962-5f81-4dbb-bf98-3b9404050744
+    title: "Basic Safety Messages Smart Columbus Connected Vehicle Environment Project"
+    interval: 12h
+  - id: 7d22b8b4-2365-4afa-9b7c-e27b39c3e710
+    title: "Basic Safety Messages from US33 Marysville Corridor Project"
+    interval: 12h
+  - id: 2c4ead71-9dff-4662-a298-5dec3efef31d
+    title: "CoGo GBFS Station Status"
+    interval: 25h
+  - id: 3228478d-0071-4cc3-91f7-a6c75d3ed945
+    title: "Smart Mobility Hubs Counters"
+    interval: 25h
+
 serverFiles:
   alerts:
     groups:
@@ -59,15 +97,6 @@ serverFiles:
               severity: error
             annotations:
               summary: '{{ $labels.topic }} has no input for at least 5 minutes'
-      - name: doim_alerts
-        rules:
-          - alert: DoimIngestion
-            expr: sum(rate(kafka_topic_partition_current_offset{topic=~"transformed-cf3d0471-4239-452b-a626-566c3ce22504|transformed-3fc8c3d7-7754-4d5c-b7d9-fef081d7f2ff|transformed-b37f597b-8527-41da-a3aa-71d72f554b4c"}[25h])) by (topic) == 0
-            labels:
-              severity: error
-            annotations:
-              description: '{{ $labels.topic }} has not had any input in the last 25 hours'
-              summary: 'DoIM Data Has Not Loaded'
       - name: joomla_backup
         rules:
         - alert: JoomlaBackupNotCompleted
