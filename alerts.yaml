@@ -12,7 +12,7 @@ datasetAlerts:
     title: "City of Columbus Parking Meter Transactions"
     interval: 25h
   - id: 3d5cf546-c04c-403f-9938-5a1db0b3772a
-    title: "Transactions for City of Columbus 2019 - 2020"
+    title: "Transactions for City of Columbus"
     interval: 25h
   - id: a360cbdc-efdf-4ab0-8a52-c5532936b9c0
     title: "Park Columbus Session Data Event Parking Management"
@@ -24,7 +24,7 @@ datasetAlerts:
     title: "COTA Real Time Bus Locations"
     interval: 12h
   - id: 9cf13962-5f81-4dbb-bf98-3b9404050744
-    title: "Basic Safety Messages - Smart Columbus Connected Vehicle Environment Project"
+    title: "Basic Safety Messages Smart Columbus Connected Vehicle Environment Project"
     interval: 12h
   - id: 7d22b8b4-2365-4afa-9b7c-e27b39c3e710
     title: "Basic Safety Messages from US33 Marysville Corridor Project"
@@ -33,7 +33,7 @@ datasetAlerts:
     title: "CoGo GBFS Station Status"
     interval: 25h
   - id: 3228478d-0071-4cc3-91f7-a6c75d3ed945
-    title: "Smart Mobility Hubs - Counters"
+    title: "Smart Mobility Hubs Counters"
     interval: 25h
 
 serverFiles:
