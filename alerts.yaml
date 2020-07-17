@@ -137,11 +137,11 @@ serverFiles:
       - name: consumer_group_lag_high
         rules:
         - alert: ConsumerGroupLagLargerHighVolume
-          expr: sum(kafka_consumergroup_lag) by (topic) > 25000
+          expr: sum(kafka_consumergroup_lag) by (topic) > 50000
           labels:
             severity: warning
           annotations:
-            summary: 'Consumer Group lag is greater than 25000'
+            summary: 'Consumer Group lag is greater than 50000'
             description: 'Consumer Group lag topic {{ $labels.topic }} has become {{ humanize $value }}.'
       - name: model_variance
         rules:
