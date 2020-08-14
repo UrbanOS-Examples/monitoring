@@ -1,0 +1,245 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: eks-waf
+  labels:
+    grafana_dashboard: "true"
+data:
+  eks-waf.json: |-
+    {
+      "__inputs": [
+        {
+          "name": "DS_CLOUDWATCH",
+          "label": "CloudWatch",
+          "description": "",
+          "type": "datasource",
+          "pluginId": "cloudwatch",
+          "pluginName": "CloudWatch"
+        }
+      ],
+      "__requires": [
+        {
+          "type": "datasource",
+          "id": "cloudwatch",
+          "name": "CloudWatch",
+          "version": "1.0.0"
+        },
+        {
+          "type": "grafana",
+          "id": "grafana",
+          "name": "Grafana",
+          "version": "7.0.1"
+        },
+        {
+          "type": "panel",
+          "id": "graph",
+          "name": "Graph",
+          "version": ""
+        }
+      ],
+      "annotations": {
+        "list": [
+          {
+            "builtIn": 1,
+            "datasource": "-- Grafana --",
+            "enable": true,
+            "hide": true,
+            "iconColor": "rgba(0, 211, 255, 1)",
+            "name": "Annotations & Alerts",
+            "type": "dashboard"
+          }
+        ]
+      },
+      "description": "CloudWatch metrics for the WAF placed in front of EKS ALBs.",
+      "editable": true,
+      "gnetId": null,
+      "graphTooltip": 0,
+      "id": null,
+      "links": [],
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "${DS_CLOUDWATCH}",
+          "description": "The count of actions taken on requests by the firewall. Note that CloudWatch can only provide a high level aggregation at the rule level and doesn't provide details on which specific application the rule fired for. However, you can go to the WAFv2 console in AWS and see a sample of blocked, allowed, etc. requests.",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
+          "fill": 1,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 14,
+            "w": 24,
+            "x": 0,
+            "y": 0
+          },
+          "hiddenSeries": false,
+          "id": 2,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
+          "percentage": false,
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "Allowed requests",
+              "dimensions": {
+                "Rule": "AWS-AWSWebACLEKSCluster"
+              },
+              "expression": "",
+              "id": "",
+              "matchExact": false,
+              "metricName": "AllowedRequests",
+              "namespace": "AWS/WAFV2",
+              "period": "",
+              "refId": "A",
+              "region": "default",
+              "statistics": [
+                "Sum"
+              ]
+            },
+            {
+              "alias": "Passed through requests",
+              "dimensions": {
+                "Rule": "*"
+              },
+              "expression": "",
+              "id": "",
+              "matchExact": false,
+              "metricName": "PassedRequests",
+              "namespace": "AWS/WAFV2",
+              "period": "",
+              "refId": "D",
+              "region": "default",
+              "statistics": [
+                "Sum"
+              ]
+            },
+            {
+              "alias": "Blocked requests for rule {{Rule}}",
+              "dimensions": {
+                "Rule": "*"
+              },
+              "expression": "",
+              "id": "",
+              "matchExact": false,
+              "metricName": "BlockedRequests",
+              "namespace": "AWS/WAFV2",
+              "period": "",
+              "refId": "B",
+              "region": "default",
+              "statistics": [
+                "Sum"
+              ]
+            },
+            {
+              "alias": "Counted requests for rule {{Rule}}",
+              "dimensions": {
+                "Rule": "*"
+              },
+              "expression": "",
+              "id": "",
+              "matchExact": false,
+              "metricName": "CountedRequests",
+              "namespace": "AWS/WAFV2",
+              "period": "",
+              "refId": "C",
+              "region": "default",
+              "statistics": [
+                "Sum"
+              ]
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Aggregated Request Counts",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        }
+      ],
+      "schemaVersion": 25,
+      "style": "dark",
+      "tags": [],
+      "templating": {
+        "list": []
+      },
+      "time": {
+        "from": "now-6h",
+        "to": "now"
+      },
+      "timepicker": {
+        "refresh_intervals": [
+          "10s",
+          "30s",
+          "1m",
+          "5m",
+          "15m",
+          "30m",
+          "1h",
+          "2h",
+          "1d"
+        ]
+      },
+      "timezone": "",
+      "title": "EKS Web Application Firewall",
+      "uid": "iZ352wIMk",
+      "version": 1
+    }
