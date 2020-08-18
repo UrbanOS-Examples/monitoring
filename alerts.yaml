@@ -128,20 +128,20 @@ serverFiles:
       - name: consumer_group_lag
         rules:
         - alert: ConsumerGroupLagLarger
-          expr: sum by(topic) (kafka_consumergroup_lag{topic!~"(.*7d22b8b4-2365-4afa-9b7c-e27b39c3e710|.*90d51c3b-8c01-4ba4-ac24-a3206458f851)"}) > 10000
+          expr: sum by(topic) (kafka_consumergroup_lag{topic!~"(.*7d22b8b4-2365-4afa-9b7c-e27b39c3e710|.*90d51c3b-8c01-4ba4-ac24-a3206458f851|.*9cf13962-5f81-4dbb-bf98-3b9404050744|.*4150217b-7b05-4cbd-9a74-5464e6c8b93a)"}) > 10000
           labels:
             severity: warning
           annotations:
-            summary: 'Consumer Group lag is greater than 10000'
+            summary: 'Consumer Group lag is greater than 10,000'
             description: 'Consumer Group lag topic {{ $labels.topic }} has become {{ humanize $value }}.'
       - name: consumer_group_lag_high
         rules:
         - alert: ConsumerGroupLagLargerHighVolume
-          expr: sum(kafka_consumergroup_lag) by (topic) > 50000
+          expr: sum(kafka_consumergroup_lag) by (topic) > 100000
           labels:
             severity: warning
           annotations:
-            summary: 'Consumer Group lag is greater than 50000'
+            summary: 'Consumer Group lag is greater than 100,000'
             description: 'Consumer Group lag topic {{ $labels.topic }} has become {{ humanize $value }}.'
       - name: model_variance
         rules:
