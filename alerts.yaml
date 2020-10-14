@@ -137,7 +137,7 @@ serverFiles:
       - name: consumer_group_lag_high
         rules:
         - alert: ConsumerGroupLagLargerHighVolume
-          expr: sum by(topic) (kafka_consumergroup_lag{topic=~"(.*9cf13962-5f81-4dbb-bf98-3b9404050744)"}) > 100000
+          expr: sum by(topic) (kafka_consumergroup_lag{topic!~"(.*9cf13962-5f81-4dbb-bf98-3b9404050744)"}) > 100000
           labels:
             severity: warning
           annotations:
