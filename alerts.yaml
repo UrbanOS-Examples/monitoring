@@ -137,11 +137,20 @@ serverFiles:
       - name: consumer_group_lag_high
         rules:
         - alert: ConsumerGroupLagLargerHighVolume
-          expr: sum(kafka_consumergroup_lag) by (topic) > 100000
+          expr: sum by(topic) (kafka_consumergroup_lag{topic!~"(.*9cf13962-5f81-4dbb-bf98-3b9404050744)"}) > 100000
           labels:
             severity: warning
           annotations:
             summary: 'Consumer Group lag is greater than 100,000'
+            description: 'Consumer Group lag topic {{ $labels.topic }} has become {{ humanize $value }}.'
+      - name: consumer_group_lag_super
+        rules:
+        - alert: ConsumerGroupLagSuperHighVolume
+          expr: sum(kafka_consumergroup_lag) by (topic) > 250000
+          labels:
+            severity: warning
+          annotations:
+            summary: 'Consumer Group lag is greater than 250,000'
             description: 'Consumer Group lag topic {{ $labels.topic }} has become {{ humanize $value }}.'
       - name: model_variance
         rules:
