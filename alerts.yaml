@@ -173,12 +173,3 @@ serverFiles:
           annotations:
             summary: 'Server disk space is below 15%'
             description: 'Low disk space for Server {{ $labels.persistentvolumeclaim }}, only {{ $value | printf "%.2f" }}% space is left.'
-      - name: no_chargepoint_dataset_received
-        rules:
-        - alert: NoChargepointDatasetReceived
-          expr: dataset_info_gauge{dataset_id="5d47f0de-0283-11eb-adc1-0242ac120002",system_name=~"(chargepoint.*)"}[25h]
-          labels:
-            severity: warning
-          annotations:
-            summary: 'No Chargepoint dataset received'
-            description: 'No Chargepoint dataset received for last 25 hours.'
