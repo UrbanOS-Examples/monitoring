@@ -169,4 +169,4 @@ serverFiles:
             severity: warning
           annotations:
             summary: 'Server disk space is below 15%'
-            description: 'Low disk space for Server {{ $labels.persistentvolumeclaim }} only {{ $value | printf "%.2f" }}% space is left.'
+            description: 'Low disk space for Server {{ $labels.persistentvolumeclaim }}, only {{ $value | printf "%.2f" }}% space is left.'
