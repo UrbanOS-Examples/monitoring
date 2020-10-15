@@ -164,9 +164,9 @@ serverFiles:
       - name: low_disk_space
         rules:
         - alert: LowDiskSpace
-          expr: (kubelet_volume_stats_available_bytes / kubelet_volume_stats_capacity_bytes < 0.15) * 100
+          expr: (kubelet_volume_stats_available_bytes / kubelet_volume_stats_capacity_bytes < 0.85) * 100
           labels:
             severity: warning
           annotations:
             summary: 'Server disk space is below 15%'
-            description: 'Low disk space for Server {{ $labels.persistentvolumeclaim }} only {{ $value }}% space is left.'
+            description: 'Low disk space for Server {{ $labels.persistentvolumeclaim }} only {{ $value | printf "%.2f" }}% space is left.'
