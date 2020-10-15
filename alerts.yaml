@@ -161,3 +161,12 @@ serverFiles:
           annotations:
             summary: 'Parking model variance exceeds 0.10'
             description: 'Parking prediction variance for zone {{ $labels.zone }} is {{ $value }}.'
+      - name: low_disk_space
+        rules:
+        - alert: LowDiskSpace
+          expr: (kubelet_volume_stats_available_bytes / kubelet_volume_stats_capacity_bytes < 0.85) * 100
+          labels:
+            severity: warning
+          annotations:
+            summary: 'Server disk space is below 15%'
+            description: 'Low disk space for Server {{ $labels.persistentvolumeclaim }} only {{ $value }}% is left.'
