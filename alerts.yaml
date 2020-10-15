@@ -36,7 +36,7 @@ datasetAlerts:
     title: "Smart Mobility Hubs Counters"
     interval: 25h
   - id: 5d47f0de-0283-11eb-adc1-0242ac120002
-    title: "Chargepoint Station Data"
+    title: "Charging Session Data"
     interval: 25h
 
 serverFiles:
