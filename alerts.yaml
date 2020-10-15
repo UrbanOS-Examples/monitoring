@@ -35,6 +35,9 @@ datasetAlerts:
   - id: 3228478d-0071-4cc3-91f7-a6c75d3ed945
     title: "Smart Mobility Hubs Counters"
     interval: 25h
+  - id: 5d47f0de-0283-11eb-adc1-0242ac120002
+    title: "Chargepoint Station Data"
+    interval: 25h
 
 serverFiles:
   alerts:
@@ -161,12 +164,12 @@ serverFiles:
           annotations:
             summary: 'Parking model variance exceeds 0.10'
             description: 'Parking prediction variance for zone {{ $labels.zone }} is {{ $value }}.'
-      - name: no_chargepoint_dataset_received
+      - name: low_disk_space
         rules:
-        - alert: NoChargepointDatasetReceived
-          expr: dataset_info_gauge{dataset_id="5d47f0de-0283-11eb-adc1-0242ac120002",system_name=~"(chargepoint.*)"}[25h]
+        - alert: LowDiskSpace
+          expr: (kubelet_volume_stats_available_bytes / kubelet_volume_stats_capacity_bytes * 100)  < 15
           labels:
             severity: warning
           annotations:
-            summary: 'No Chargepoint dataset received'
-            description: 'No Chargepoint dataset received for last 25 hours.'
+            summary: 'Server disk space is below 15%'
+            description: 'Low disk space for Server {{ $labels.persistentvolumeclaim }}, only {{ $value | printf "%.2f" }}% space is left.'
