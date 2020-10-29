@@ -10,7 +10,7 @@ serverFiles:
         record: 'pipeline:topic:lag'
       - expr: sum(rate(events_handled_count{event_type!="data:extract:end"}[2m]) > 0) by (app, dataset_id, event_type) * on (dataset_id) group_left(dataset_title, source_type, org_name) dataset_info_gauge
         record: 'pipeline:event_stream:events_handled'
-      - expr: label_replace(kafka_consumergroup_lag{consumergroup=~"(.*event-stream|.*events)"}, "app", "$1", "consumergroup", "(.+)-event-stream") > 0
+      - expr: label_replace(kafka_consumergroup_lag{consumergroup=~"(.*event-stream|.*events)"}, "app", "$1", "consumergroup", "(.+)-(event-stream|events)") > 0
         record: 'pipeline:event_stream:lag'
       - expr: sum(label_replace(rate(fluentd_input_status_num_records_total{tag=~".*(forklift|reaper|voltron|valkyrie|odo|discovery-api).*"}[5m]), "name", "$1", "tag", "kube.var.log.containers.(.+?)-.*")) by (name) > 0
         record: 'pipeline:log_message_rate'
