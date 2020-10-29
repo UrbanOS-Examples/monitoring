@@ -40,7 +40,7 @@ data:
       "editable": true,
       "gnetId": null,
       "graphTooltip": 0,
-      "iteration": 1602081835828,
+      "iteration": 1602081835829,
       "links": [],
       "panels": [
         {
@@ -353,7 +353,7 @@ data:
             {
               "expr": "pipeline:event_stream:lag",
               "interval": "",
-              "legendFormat": "{{app}} - event stream",
+              "legendFormat": "{{consumergroup}}",
               "refId": "A"
             }
           ],
