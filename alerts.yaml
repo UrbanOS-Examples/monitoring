@@ -131,30 +131,30 @@ serverFiles:
       - name: consumer_group_lag
         rules:
         - alert: ConsumerGroupLagLarger
-          expr: sum by(topic) (kafka_consumergroup_lag{topic!~"(.*7d22b8b4-2365-4afa-9b7c-e27b39c3e710|.*90d51c3b-8c01-4ba4-ac24-a3206458f851|.*9cf13962-5f81-4dbb-bf98-3b9404050744|.*4150217b-7b05-4cbd-9a74-5464e6c8b93a)"}) > 10000
+          expr: label_replace(label_replace(label_replace(sum by(consumergroup, topic, dataset) (kafka_consumergroup_lag{topic!~"(.*7d22b8b4-2365-4afa-9b7c-e27b39c3e710|.*90d51c3b-8c01-4ba4-ac24-a3206458f851|.*9cf13962-5f81-4dbb-bf98-3b9404050744|.*4150217b-7b05-4cbd-9a74-5464e6c8b93a)"}) > 10000, "dataset_id", "$3", "consumergroup", "(.+)-(raw|transformed)-(.*)"), "stage", "$2", "consumergroup", "(.+)-(raw|transformed)-(.*)"), "app", "$1", "consumergroup", "(.+)-(raw|transformed)-(.*)") * on (dataset_id) group_left(dataset_title, source_type, org_name) dataset_info_gauge
           labels:
             severity: warning
           annotations:
             summary: 'Consumer Group lag is greater than 10,000'
-            description: 'Consumer Group lag topic {{ $labels.topic }} has become {{ humanize $value }}.'
+            description: 'Consumer Group lag topic {{ $labels.dataset_title }} has become {{ humanize $value }}.'
       - name: consumer_group_lag_high
         rules:
         - alert: ConsumerGroupLagLargerHighVolume
-          expr: sum by(topic) (kafka_consumergroup_lag{topic!~"(.*9cf13962-5f81-4dbb-bf98-3b9404050744)"}) > 100000
+          expr: label_replace(label_replace(label_replace(sum by(consumergroup, topic, dataset) (kafka_consumergroup_lag{topic!~"(.*9cf13962-5f81-4dbb-bf98-3b9404050744)"}) > 100000, "dataset_id", "$3", "consumergroup", "(.+)-(raw|transformed)-(.*)"), "stage", "$2", "consumergroup", "(.+)-(raw|transformed)-(.*)"), "app", "$1", "consumergroup", "(.+)-(raw|transformed)-(.*)") * on (dataset_id) group_left(dataset_title, source_type, org_name) dataset_info_gauge
           labels:
             severity: warning
           annotations:
             summary: 'Consumer Group lag is greater than 100,000'
-            description: 'Consumer Group lag topic {{ $labels.topic }} has become {{ humanize $value }}.'
+            description: 'Consumer Group lag topic {{ $labels.dataset_title }} has become {{ humanize $value }}.'
       - name: consumer_group_lag_super
         rules:
         - alert: ConsumerGroupLagSuperHighVolume
-          expr: sum(kafka_consumergroup_lag) by (topic) > 250000
+          expr: label_replace(label_replace(label_replace(sum(kafka_consumergroup_lag) by (consumergroup, topic, dataset) > 250000, "dataset_id", "$3", "consumergroup", "(.+)-(raw|transformed)-(.*)"), "stage", "$2", "consumergroup", "(.+)-(raw|transformed)-(.*)"), "app", "$1", "consumergroup", "(.+)-(raw|transformed)-(.*)") * on (dataset_id) group_left(dataset_title, source_type, org_name) dataset_info_gauge
           labels:
             severity: warning
           annotations:
             summary: 'Consumer Group lag is greater than 250,000'
-            description: 'Consumer Group lag topic {{ $labels.topic }} has become {{ humanize $value }}.'
+            description: 'Consumer Group lag topic {{ $labels.dataset_title }} has become {{ humanize $value }}.'
       - name: model_variance
         rules:
         - alert: ModelVarianceLarger
