@@ -38,7 +38,7 @@ data:
         labels:
           severity: warning
         annotations:
-          description: 'Consumer Group lag topic {{"{{"}}\$labels.dataset_title }} has become {{"{{"}}\humanize {{"{{"}}\$value }}.'
+          description: 'Consumer Group lag topic {{"{{"}}\$labels.dataset_title }} has become {{"{{"}}\humanize \$value }}.'
           summary: 'Consumer Group lag is greater than {{ .lag_limit }}
 {{- end }}
 {{- if eq $key "prometheus.yml" -}}
