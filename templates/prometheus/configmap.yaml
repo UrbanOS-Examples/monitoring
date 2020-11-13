@@ -34,12 +34,12 @@ data:
       rules:
       {{- range $.Values.consumerGroupLagAlerts }}
       - alert: {{ .alert }}
-        expr: label_replace(label_replace(label_replace(sum(kafka_consumergroup_lag{{ .topic }}) by (consumergroup, topic, dataset) > {{ .lag_limit }}, "dataset_id", "$3", "consumergroup", "(.+)-(raw|transformed)-(.*)"), "stage", "$2", "consumergroup", "(.+)-(raw|transformed)-(.*)"), "app", "$1", "consumergroup", "(.+)-(raw|transformed)-(.*)") * on (dataset_id) group_left(dataset_title, source_type, org_name) dataset_info_gauge
+        expr: label_replace(label_replace(label_replace(sum(kafka_consumergroup_lag{{ .topic }}) by (consumergroup, topic, dataset) > {{ int .lag_limit }}, "dataset_id", "$3", "consumergroup", "(.+)-(raw|transformed)-(.*)"), "stage", "$2", "consumergroup", "(.+)-(raw|transformed)-(.*)"), "app", "$1", "consumergroup", "(.+)-(raw|transformed)-(.*)") * on (dataset_id) group_left(dataset_title, source_type, org_name) dataset_info_gauge
         labels:
           severity: warning
         annotations:
           description: 'Consumer Group lag topic {{ "{{" }} $labels.dataset_title }} has become {{ "{{" }} humanize $value }}.'
-          summary: 'Consumer Group lag is greater than {{ `{0:,_.0f}`.format(.lag_limit) }}'
+          summary: 'Consumer Group lag is greater than {{ .lag_limit }}'
       {{- end }}
 {{- end }}
 {{- if eq $key "prometheus.yml" -}}
