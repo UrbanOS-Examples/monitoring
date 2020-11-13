@@ -43,10 +43,10 @@ consumerGroupLagAlerts:
   - alert: ConsumerGroupLagLarger
     topic: "{topic!~\"(.*7d22b8b4-2365-4afa-9b7c-e27b39c3e710|.*90d51c3b-8c01-4ba4-ac24-a3206458f851|.*9cf13962-5f81-4dbb-bf98-3b9404050744|.*4150217b-7b05-4cbd-9a74-5464e6c8b93a)\"}"
     lag_limit: 10000
-  - alert_name: ConsumerGroupLagLargerHighVolume
+  - alert: ConsumerGroupLagLargerHighVolume
     topic: "{topic!~\"(.*9cf13962-5f81-4dbb-bf98-3b9404050744)\"}"
     lag_limit: 100000
-  - alert_name: ConsumerGroupLagSuperHighVolume
+  - alert: ConsumerGroupLagSuperHighVolume
     topic: ""
     lag_limit: 250000
 
