@@ -346,12 +346,16 @@ data:
           "targets": [
             {
               "expr": "pipeline:topic:lag{dataset_id=~\".*([[dataset_id]]).*\"}",
+              "kafka_consumergroup_lag_params": "{kubernetes_namespace=\"streaming-prime\", consumergroup!~\"console.*\"}",
+              "lag_limit": "0",
               "interval": "",
               "legendFormat": "{{dataset_title}} | {{app}} | {{stage}}",
               "refId": "B"
             },
             {
               "expr": "pipeline:event_stream:lag",
+              "kafka_consumergroup_lag_params": "{consumergroup=~\"(.*event-stream|.*events)\"}",
+              "lag_limit": "0",
               "interval": "",
               "legendFormat": "{{app}} - event stream",
               "refId": "A"
