@@ -34,14 +34,14 @@ data:
       rules:
       {{- range $.Values.consumerGroupLagAlerts }}
       - alert: {{ .alert }}
-        expr: pipeline:topic:lag{{ .topic }} > {{ .lag_limit | replace "," "" }}
+        expr: pipeline:topic:lag{{ .topic }} < {{ .lag_limit | replace "," "" }}
         labels:
           severity: warning
         annotations:
           description: 'Consumer Group lag title {{ "{{" }} $labels.dataset_title }} has become {{ "{{" }} humanize $value }}.'
           summary: 'Consumer Group lag is greater than {{ .lag_limit }}'
-      - alert: {{ .alert }}
-        expr: pipeline:event_stream:lag > {{ .lag_limit | replace "," "" }}
+      - alert: {{ .alert }}EventStream
+        expr: pipeline:event_stream:lag < {{ .lag_limit | replace "," "" }}
         labels:
           severity: warning
         annotations:
