@@ -30,6 +30,17 @@ data:
           description: '{{ .title }} has not had any input in the last {{ .interval }}. ID: {{ .id }}'
           summary: 'The latest {{ .title }} data has not loaded'
       {{- end }}
+    - name: consumer_group_lag_alerts
+      rules:
+      {{- range $.Values.consumerGroupLagAlerts }}
+      - alert: {{ .alert }}
+        expr: pipeline:topic:lag{{ .topic }} > {{ .lag_limit | replace "," "" }}
+        labels:
+          severity: warning
+        annotations:
+          description: 'The lag for consumer group title {{ "{{" }} $labels.dataset_title }} is {{ "{{" }} humanize $value }}.'
+          summary: 'Consumer Group lag is greater than {{ .lag_limit }}'
+      {{- end }}
 {{- end }}
 {{- if eq $key "prometheus.yml" -}}
 {{- if $root.Values.extraScrapeConfigs }}
