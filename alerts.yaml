@@ -142,7 +142,7 @@ serverFiles:
       - name: consumer_group_lag_event_stream
         rules:
         - alert: ConsumerGroupLagEventStreamLarger
-          expr: pipeline:event_stream:lag < 10000
+          expr: pipeline:event_stream:lag > 10000
           labels:
             severity: warning
           annotations:
