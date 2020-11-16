@@ -142,12 +142,12 @@ serverFiles:
       - name: consumer_group_event_stream_lag
         rules:
         - alert: ConsumerGroupEventStreamLag
-          expr: pipeline:event_stream:lag < 10000
+          expr: pipeline:event_stream:lag > 10000
           labels:
             severity: warning
           annotations:
             summary: 'Consumer Group lag for topic {{ $labels.topic }} is greater than 10,000'
-            description: 'Consumer Group lag {{ $labels.consumergroup }} has become {{ humanize $value }}.'
+            description: 'The lag for consumer group {{ $labels.consumergroup }} is {{ humanize $value }}.'
       - name: model_variance
         rules:
         - alert: ModelVarianceLarger

@@ -38,7 +38,7 @@ data:
         labels:
           severity: warning
         annotations:
-          description: 'Consumer Group lag title {{ "{{" }} $labels.dataset_title }} has become {{ "{{" }} humanize $value }}.'
+          description: 'The lag for consumer group title {{ "{{" }} $labels.dataset_title }} is {{ "{{" }} humanize $value }}.'
           summary: 'Consumer Group lag is greater than {{ .lag_limit }}'
       {{- end }}
 {{- end }}
