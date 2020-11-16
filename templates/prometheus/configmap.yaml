@@ -34,7 +34,7 @@ data:
       rules:
       {{- range $.Values.consumerGroupLagAlerts }}
       - alert: {{ .alert }}
-        expr: label_replace(label_replace(label_replace(sum(kafka_consumergroup_lag{{ .topic }}) by (consumergroup, topic, dataset) > {{ .lag_limit | replace "," "" }}, "dataset_id", "$3", "consumergroup", "(.+)-(raw|transformed|event-stream)-(.*)"), "stage", "$2", "consumergroup", "(.+)-(raw|transformed|event-stream)-(.*)"), "app", "$1", "consumergroup", "(.+)-(raw|transformed|event-stream)-(.*)") * on (dataset_id) group_left(dataset_title, source_type, org_name) dataset_info_gauge
+        expr: ["pipeline:topic:lag", "pipeline:event_stream:lag"]
         labels:
           severity: warning
         annotations:
