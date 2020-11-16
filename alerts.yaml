@@ -139,6 +139,15 @@ serverFiles:
           annotations:
             summary: 'Kube Bench failed some checks'
             description: 'The most recent Kube Bench run detected some failures'
+      - name: consumer_group_lag_event_stream
+        rules:
+        - alert: ConsumerGroupLagEventStreamLarger
+          expr: pipeline:event_stream:lag < 10000
+          labels:
+            severity: warning
+          annotations:
+            summary: 'Consumer Group lag is greater than 10,000'
+            description: 'Consumer Group lag topic {{ $labels.topic }} has become {{ humanize $value }}.'
       - name: model_variance
         rules:
         - alert: ModelVarianceLarger
