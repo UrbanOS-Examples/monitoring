@@ -34,7 +34,7 @@ data:
       rules:
       {{- range $.Values.consumerGroupLagAlerts }}
       - alert: {{ .alert }}
-        expr: pipeline:topic:lag{{ .topic }} > {{ .lag_limit | replace "," "" }}
+        expr: ["pipeline:topic:lag{{ .topic }} > {{ .lag_limit | replace "," "" }}", "pipeline:event_stream:lag{{ .topic }} > {{ .lag_limit | replace "," "" }}"]
         labels:
           severity: warning
         annotations:
