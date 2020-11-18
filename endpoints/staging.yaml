@@ -10,7 +10,6 @@ extraScrapeConfigs: |
         - https://www.staging-smartos.com
         - https://discovery.staging.internal.smartcolumbusos.com
         - https://data.staging.internal.smartcolumbusos.com/healthcheck
-        - https://parking.smartcolumbusos.com/api/v1/predictions
 
     relabel_configs:
       - source_labels: [__address__]
