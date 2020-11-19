@@ -35,3 +35,12 @@ extraScrapeConfigs: |
     static_configs:
       - targets:
         - https://parking.dev-smartos.com/api/v1/predictions
+
+     relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        # ${namespace}-prometheus-blackbox-exporter:9115
+        replacement: prometheus-prometheus-blackbox-exporter:9115
