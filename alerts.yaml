@@ -67,7 +67,7 @@ serverFiles:
       - name: APIStatus
         rules:
         - alert: APIStatus
-          expr: probe_success{job="blackbox-api"} == 0
+          expr: probe_success{instance="https://parking.dev-smartos.com/api/v1/predictions"} == 0
           for: 1m
           labels:
             severity: error
@@ -77,7 +77,7 @@ serverFiles:
       - name: APIResponseTime
         rules:
         - alert: APIResponseTime
-          expr: up{job="blackbox-api"} == 0
+          expr: up{instance="https://parking.dev-smartos.com/api/v1/predictions"} == 0
           for: 3s
           labels:
             severity: error
