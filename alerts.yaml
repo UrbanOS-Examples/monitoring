@@ -64,9 +64,9 @@ serverFiles:
             annotations:
               description: '{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 2 minutes.'
               summary: 'Instance {{ $labels.instance }} down'
-      - name: APIs
+      - name: APIStatus
         rules:
-        - alert: APIDown
+        - alert: APIStatus
           expr: probe_success{job="blackbox-api"} == 0
           for: 1m
           labels:
@@ -74,9 +74,9 @@ serverFiles:
           annotations:
             description: '{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 1 minutes.'
             summary: 'Instance {{ $labels.instance }} down'
-      - name: APIs
+      - name: APIResponseTime
         rules:
-        - alert: APIDown
+        - alert: APIResponseTime
           expr: up{job="blackbox-api"} == 0
           for: 3s
           labels:
