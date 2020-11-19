@@ -57,13 +57,33 @@ serverFiles:
       - name: Sites
         rules:
           - alert: SiteDown
-            expr: probe_success == 0
+            expr: probe_success{job="blackbox"} == 0
             for: 2m
             labels:
               severity: error
             annotations:
               description: '{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 2 minutes.'
               summary: 'Instance {{ $labels.instance }} down'
+      - name: APIs
+        rules:
+        - alert: APIDown
+          expr: probe_success{job="blackbox-api"} == 0
+          for: 1m
+          labels:
+            severity: error
+          annotations:
+            description: '{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 1 minutes.'
+            summary: 'Instance {{ $labels.instance }} down'
+      - name: APIs
+        rules:
+        - alert: APIDown
+          expr: up{job="blackbox-api"} == 0
+          for: 3s
+          labels:
+            severity: error
+          annotations:
+            description: '{{ $labels.instance }} of job {{ $labels.job }} is taking more than 3 seconds.'
+            summary: 'Instance {{ $labels.instance }} is taking longer response time'
       - name: K8S_Nodes
         rules:
           - alert: LowMemory

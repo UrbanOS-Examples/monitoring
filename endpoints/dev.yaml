@@ -8,6 +8,7 @@
 #   hostname: prometheus-prometheus-blackbox-exporter:9115
 
 extraScrapeConfigs: |
+  scrape_configs:
   - job_name: 'blackbox'
     metrics_path: /probe
     params:
@@ -19,7 +20,6 @@ extraScrapeConfigs: |
         - https://www.dev-smartos.com
         - https://discovery.dev.internal.smartcolumbusos.com
         - https://data.dev.internal.smartcolumbusos.com/healthcheck
-        - https://parking.dev-smartos.com/api/v1/predictions 
 
     relabel_configs:
       - source_labels: [__address__]
@@ -30,3 +30,8 @@ extraScrapeConfigs: |
         # ${namespace}-prometheus-blackbox-exporter:9115
         replacement: prometheus-prometheus-blackbox-exporter:9115
 
+  - job_name: 'blackbox-api'
+    metrics_path: /probe
+    static_configs:
+      - targets:
+        - https://parking.dev-smartos.com/api/v1/predictions
