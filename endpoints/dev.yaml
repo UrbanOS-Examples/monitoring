@@ -8,7 +8,6 @@
 #   hostname: prometheus-prometheus-blackbox-exporter:9115
 
 extraScrapeConfigs: |
-  scrape_configs:
   - job_name: 'blackbox'
     metrics_path: /probe
     params:
