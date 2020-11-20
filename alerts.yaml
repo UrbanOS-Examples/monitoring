@@ -57,7 +57,7 @@ serverFiles:
       - name: Sites
         rules:
           - alert: SiteDown
-            expr: probe_success{job="blackbox"} == 0
+            expr: probe_success{instance!~".*(/api/v1/predictions)"} == 0
             for: 2m
             labels:
               severity: error
@@ -67,7 +67,7 @@ serverFiles:
       - name: api_status
         rules:
         - alert: APIStatusDown
-          expr: probe_success{instance="https://parking.dev-smartos.com/api/v1/predictions"} == 0
+          expr: probe_success{instance=~".*(/api/v1/predictions)"} == 0
           for: 1m
           labels:
             severity: error
@@ -77,7 +77,7 @@ serverFiles:
       - name: api_response
         rules:
         - alert: APIResponseTime
-          expr: up{instance="https://parking.dev-smartos.com/api/v1/predictions"} == 0
+          expr: up{instance=~".*(/api/v1/predictions)"} == 0
           for: 3s
           labels:
             severity: error
