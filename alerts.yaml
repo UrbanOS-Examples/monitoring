@@ -78,7 +78,7 @@ serverFiles:
         rules:
         - alert: APIResponseTime
           expr: up{instance=~".*(/api/v1/predictions)"} == 0
-          for: 3s
+          for: 0.01s
           labels:
             severity: error
           annotations:
