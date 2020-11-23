@@ -77,8 +77,8 @@ serverFiles:
       - name: api_response
         rules:
         - alert: APIResponseTime
-          expr: probe_duration_seconds{instance=~".*(/api/v1/predictions)"}
-          for: 3s
+          expr: probe_duration_seconds{instance=~".*(/api/v1/predictions)"} > 3
+          for: 1m
           labels:
             severity: error
           annotations:
