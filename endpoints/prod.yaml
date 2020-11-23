@@ -11,6 +11,7 @@ extraScrapeConfigs: |
         - https://survey.smartcolumbusos.com/
         - https://discovery.smartcolumbusos.com
         - https://data.smartcolumbusos.com/healthcheck
+        - https://parking.smartcolumbusos.com/api/v1/predictions
     relabel_configs:
       - source_labels: [__address__]
         target_label: __param_target

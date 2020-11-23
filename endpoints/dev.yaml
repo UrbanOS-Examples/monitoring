@@ -19,6 +19,7 @@ extraScrapeConfigs: |
         - https://www.dev-smartos.com
         - https://discovery.dev.internal.smartcolumbusos.com
         - https://data.dev.internal.smartcolumbusos.com/healthcheck
+        - https://parking.dev-smartos.com/api/v1/predictions
 
     relabel_configs:
       - source_labels: [__address__]
@@ -28,4 +29,3 @@ extraScrapeConfigs: |
       - target_label: __address__
         # ${namespace}-prometheus-blackbox-exporter:9115
         replacement: prometheus-prometheus-blackbox-exporter:9115
-
