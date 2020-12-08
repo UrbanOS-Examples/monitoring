@@ -127,7 +127,7 @@ data:
               "refId": "A"
             },
             {
-              "expr": "sum(rate(kafka_topic_partition_current_offset{kubernetes_namespace=\"streaming-prime\", topic=~\"(streaming-persisted|dead-letters)\"}[2m]) > 0) by (topic)",
+              "expr": "sum(rate(kafka_topic_partition_current_offset{kubernetes_namespace=\"streaming-prime\", topic=~\"(streaming-persisted|streamiing-dead-letters)\"}[2m]) > 0) by (topic)",
               "interval": "",
               "legendFormat": "{{topic}}",
               "refId": "B"
@@ -696,7 +696,6 @@ data:
             "allValue": "-",
             "current": {
               "selected": true,
-              "tags": [],
               "text": "All",
               "value": [
                 "$__all"
