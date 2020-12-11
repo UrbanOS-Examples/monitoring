@@ -28,7 +28,7 @@ datasetAlerts:
     interval: 12h
   - id: 7d22b8b4-2365-4afa-9b7c-e27b39c3e710
     title: "Basic Safety Messages from US33 Marysville Corridor Project"
-    interval: 12h
+    interval: 25h
   - id: 2c4ead71-9dff-4662-a298-5dec3efef31d
     title: "CoGo GBFS Station Status"
     interval: 25h
@@ -48,7 +48,7 @@ consumerGroupLagAlerts:
     lag_limit: 100,000
   - alert: ConsumerGroupLagSuperHighVolume
     topic: ""
-    lag_limit: 250,000
+    lag_limit: 500,000
 
 serverFiles:
   alerts:
