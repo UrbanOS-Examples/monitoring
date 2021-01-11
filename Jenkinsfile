@@ -55,6 +55,8 @@ def deployMonitoringTo(environment) {
             sh("""#!/bin/bash
 
                 helm init --client-only
+                helm repo add new-stable https://charts.helm.sh/stable
+                helm repo add new-incubator https://charts.helm.sh/incubator
                 helm dependency update
                 helm upgrade --install prometheus . \
                     --namespace=prometheus \
