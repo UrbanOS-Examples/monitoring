@@ -40,7 +40,7 @@ data:
       "editable": true,
       "gnetId": null,
       "graphTooltip": 0,
-      "iteration": 1607005515948,
+      "iteration": 1611260467014,
       "links": [],
       "panels": [
         {
@@ -127,7 +127,7 @@ data:
               "refId": "A"
             },
             {
-              "expr": "sum(rate(kafka_topic_partition_current_offset{kubernetes_namespace=\"streaming-prime\", topic=~\"(streaming-persisted|streamiing-dead-letters)\"}[2m]) > 0) by (topic)",
+              "expr": "sum(rate(kafka_topic_partition_current_offset{kubernetes_namespace=\"streaming-prime\", topic=~\"(streaming-persisted|streaming-dead-letters)\"}[2m]) > 0) by (topic)",
               "interval": "",
               "legendFormat": "{{topic}}",
               "refId": "B"
@@ -648,7 +648,7 @@ data:
             "overrides": []
           },
           "gridPos": {
-            "h": 8,
+            "h": 9,
             "w": 12,
             "x": 12,
             "y": 16
