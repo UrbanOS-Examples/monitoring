@@ -186,3 +186,12 @@ serverFiles:
           annotations:
             summary: 'Server disk space is below 15%'
             description: 'Low disk space for Server {{ $labels.persistentvolumeclaim }}, only {{ $value | printf "%.2f" }}% space is left.'
+      - name: rule_failure
+        rules:
+        - alert: RuleFailure
+          expr: rate(prometheus_rule_evaluation_failures_total{rule_group=~".*rules.*"}[2m]) > 0
+          labels:
+            severity: warning
+          annotations:
+            summary: 'Prometheus has failed to precalculate one or more metrics'
+            description: 'One of the recording rules defined in Prometheus has failed to execute. This is often due to issues with info metrics, but may have other causes. Look at the rules section of the Prometheus interface for more info.'
