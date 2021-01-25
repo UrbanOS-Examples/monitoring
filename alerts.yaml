@@ -25,7 +25,7 @@ datasetAlerts:
     interval: 12h
   - id: 9cf13962-5f81-4dbb-bf98-3b9404050744
     title: "Basic Safety Messages Smart Columbus Connected Vehicle Environment Project"
-    interval: 12h
+    interval: 2h
   - id: 2c4ead71-9dff-4662-a298-5dec3efef31d
     title: "CoGo GBFS Station Status"
     interval: 25h
