@@ -38,6 +38,9 @@ datasetAlerts:
   - id: "ae8cc5ac-3399-436e-b16d-c211401a3f7e"
     title: "PIVOT Trip Data"
     interval: 25h
+  - id: "0e7921c2-7e6c-4c67-bc0f-175ea1fa2183"
+    title: "MMTPA Marketing Analytics Data"
+    interval: 25h
 
 consumerGroupLagAlerts:
   - alert: ConsumerGroupLagLarger
