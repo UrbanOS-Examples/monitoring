@@ -158,7 +158,7 @@ nodeExporter:
   enabled: true
   name: node-exporter
   image:
-    repository: prom/node-exporter
+    repository: 199837183662.dkr.ecr.us-east-2.amazonaws.com/scos/node-exporter
     tag: v1.0.0
     pullPolicy: IfNotPresent
   priorityClassName: ""
