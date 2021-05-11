@@ -1,4 +1,0 @@
-dependencies:
-  - name: prometheus-blackbox-exporter
-    version: 1.5.1
-    repository: "@stable"
