@@ -13,6 +13,7 @@ metadata:
 {{ toYaml . | indent 4 }}
 {{- end }}
 spec:
+  serviceName: {{ template "prometheus.name" . }}
   selector:
     matchLabels:
       app: {{ template "prometheus.name" . }}

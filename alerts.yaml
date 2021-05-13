@@ -41,17 +41,23 @@ datasetAlerts:
   - id: "4e10fc97-6572-4cb7-a2f2-fa86d01e46da"
     title: "MMTPA Marketing Analytics Data"
     interval: 25h
+  - id: "99a9fc98-6a58-4717-b004-2b4751e7c30b"
+    title: "COTA TVIER CVE Data"
+    interval: 2h
+  - id: "2e883162-ec58-4306-82d4-65295ac82cc4"
+    title: "INRIX Traffic Speed Data "
+    interval: 25h
 
 consumerGroupLagAlerts:
   - alert: ConsumerGroupLagLarger
-    topic: "{topic!~\"(.*7d22b8b4-2365-4afa-9b7c-e27b39c3e710|.*90d51c3b-8c01-4ba4-ac24-a3206458f851|.*9cf13962-5f81-4dbb-bf98-3b9404050744|.*4150217b-7b05-4cbd-9a74-5464e6c8b93a|.*99a9fc98-6a58-4717-b004-2b4751e7c30b)\"}"
+    topic: "{topic!~\"(.*7d22b8b4-2365-4afa-9b7c-e27b39c3e710|.*90d51c3b-8c01-4ba4-ac24-a3206458f851|.*9cf13962-5f81-4dbb-bf98-3b9404050744|.*4150217b-7b05-4cbd-9a74-5464e6c8b93a|.*99a9fc98-6a58-4717-b004-2b4751e7c30b|.*2e883162-ec58-4306-82d4-65295ac82cc4)\"}"
     lag_limit: 10,000
   - alert: ConsumerGroupLagLargerHighVolume
     topic: "{topic!~\"(.*9cf13962-5f81-4dbb-bf98-3b9404050744|.*99a9fc98-6a58-4717-b004-2b4751e7c30b)\"}"
     lag_limit: 100,000
   - alert: ConsumerGroupLagSuperHighVolume
     topic: ""
-    lag_limit: 500,000
+    lag_limit: 1,000,000
 
 serverFiles:
   alerts:
