@@ -54,8 +54,6 @@ def deployMonitoringTo(environment) {
         withCredentials([string(credentialsId: "slack-webhook-${environment}", variable: 'SLACK_URL')]) {
             sh("""#!/bin/bash
 
-                helm init --client-only
-                helm repo rm stable
                 helm repo add stable https://charts.helm.sh/stable
                 helm repo update
                 helm dependency update
