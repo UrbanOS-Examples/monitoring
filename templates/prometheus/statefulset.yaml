@@ -108,11 +108,12 @@ spec:
             initialDelaySeconds: 30
             timeoutSeconds: 30
           livenessProbe:
+            failureThreshold: 5
             httpGet:
               path: {{ .Values.server.prefixURL }}/-/healthy
               port: 9090
-            initialDelaySeconds: 30
-            timeoutSeconds: 30
+            initialDelaySeconds: 90
+            timeoutSeconds: 90
           resources:
 {{ toYaml .Values.server.resources | trim | indent 12 }}
           volumeMounts:
