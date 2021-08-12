@@ -26,9 +26,9 @@ datasetAlerts:
   - id: 9cf13962-5f81-4dbb-bf98-3b9404050744
     title: "Basic Safety Messages Smart Columbus Connected Vehicle Environment Project"
     interval: 1h
-  - id: 2c4ead71-9dff-4662-a298-5dec3efef31d
-    title: "CoGo GBFS Station Status"
-    interval: 25h
+#   - id: 2c4ead71-9dff-4662-a298-5dec3efef31d
+#     title: "CoGo GBFS Station Status"
+#     interval: 25h
   - id: 3228478d-0071-4cc3-91f7-a6c75d3ed945
     title: "Smart Mobility Hubs Counters"
     interval: 25h
@@ -43,7 +43,7 @@ datasetAlerts:
     interval: 25h
   - id: "99a9fc98-6a58-4717-b004-2b4751e7c30b"
     title: "COTA TVIER CVE Data"
-    interval: 2h
+    interval: 8h
   - id: "2e883162-ec58-4306-82d4-65295ac82cc4"
     title: "INRIX Traffic Speed Data "
     interval: 25h
