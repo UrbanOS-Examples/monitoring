@@ -11,21 +11,27 @@ datasetAlerts:
   - id: 59012505-a69b-4b5e-b3fa-4a49cf42e21d
     title: "City of Columbus Parking Meter Transactions"
     interval: 25h
+    severity: error
   - id: 3ef09df8-4dba-4175-8556-08dc6cca5dc5
     title: "Park Columbus Parking Meter Transaction Data"
     interval: 25h
+    severity: error
   - id: a360cbdc-efdf-4ab0-8a52-c5532936b9c0
     title: "Park Columbus Session Data Event Parking Management"
     interval: 25h
+    severity: error
   - id: 78213fa0-94a3-45ed-8ee2-f44825e13d20
     title: "Short North Parking Occupancy"
     interval: 1h
+    severity: error
   - id: 90d51c3b-8c01-4ba4-ac24-a3206458f851
     title: "COTA Real Time Bus Locations"
     interval: 12h
+    severity: error
   - id: 9cf13962-5f81-4dbb-bf98-3b9404050744
     title: "Basic Safety Messages Smart Columbus Connected Vehicle Environment Project"
     interval: 1h
+    severity: error
 #   - id: 2c4ead71-9dff-4662-a298-5dec3efef31d
 #     title: "CoGo GBFS Station Status"
 #     interval: 25h
@@ -44,9 +50,11 @@ datasetAlerts:
   - id: "99a9fc98-6a58-4717-b004-2b4751e7c30b"
     title: "COTA TVIER CVE Data"
     interval: 8h
+    severity: error
   - id: "2e883162-ec58-4306-82d4-65295ac82cc4"
     title: "INRIX Traffic Speed Data "
     interval: 25h
+    severity: error
 
 consumerGroupLagAlerts:
   - alert: ConsumerGroupLagLarger
